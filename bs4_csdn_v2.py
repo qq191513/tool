@@ -1,4 +1,4 @@
-﻿# coding=utf-8
+# coding=utf-8
 #本代码用于保存csdn文章，然后自己手工打开浏览器Ctrl + P 打印成 pdf
 
 from bs4 import BeautifulSoup
@@ -13,7 +13,8 @@ import os,requests
 
 #选择2：网址
 page_name = 'test.html'   #下载保存的网页名字
-url = 'https://blog.csdn.net/hzqtby/article/details/52864660'  #csdn博客地址
+url = 'https://blog.csdn.net/cherrylvlei/article/details/79944928'  #csdn博客地址
+page_name_prettify = 'ch_'+page_name  #修改后的保存网页名
 
 
 def save_html(url,page_name):
@@ -25,15 +26,15 @@ def save_html(url,page_name):
 
 
 
-f = save_html(url,page_name)
-
-page_name_prettify = 'ch_'+page_name  #修改后的网页名字
 
 
 
-def save_file_to_local():
 
 
+
+def save_csdn():
+    #先下载网站并且网站
+    f = save_html(url, page_name)
     #打开
     f = open(page_name, encoding='UTF-8')
     soup = BeautifulSoup(f,"html.parser")
@@ -92,7 +93,6 @@ def save_file_to_local():
 
 
 if __name__ == '__main__':
-
-    save_file_to_local()
+    save_csdn()
 
     #之后自己手工用火狐或google浏览器打开然后按A3类型纸张打印成pdf
