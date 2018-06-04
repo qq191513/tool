@@ -10,7 +10,12 @@ import os,requests
 # page_name= 'ccc.html'
 # page_name_prettify= 'ccc_prettify.html'
 
+
 #选择2：网址
+page_name = 'test.html'   #下载保存的网页名字
+url = 'https://blog.csdn.net/hzqtby/article/details/52864660'  #csdn博客地址
+
+
 def save_html(url,page_name):
     r_page = requests.get(url)
     f = open(page_name,'wb')
@@ -19,13 +24,10 @@ def save_html(url,page_name):
     return f
 
 
-page_name = 'test.html'   #下载保存的网页名字
-url = 'https://blog.csdn.net/bhneo/article/details/79419361'  #csdn博客地址
+
 f = save_html(url,page_name)
 
 page_name_prettify = 'ch_'+page_name  #修改后的网页名字
-
-
 
 
 
@@ -41,6 +43,16 @@ def save_file_to_local():
     for toolbar in soup.find_all(id='csdn-toolbar'):
         toolbar.extract()
 
+    for script in soup.find_all('script'):
+        # print(script)
+        # print(type(script))
+
+        text = script.get_text()
+        if text.find('commen') != -1:
+            print(script)
+            script.extract()
+
+
     soup.find('aside').extract()
     soup.find('header').extract()
 
@@ -54,11 +66,20 @@ def save_file_to_local():
     soup.find(class_="comment-box").extract()
     soup.find(class_="recommend-box").extract()
 
+    soup.find(class_="pulllog-box").extract()
+    soup.find(id="commentBox").extract()
+
+    readmore = soup.find(id="btn-readmore")
+    if readmore is not None:
+        readmore.extract()
+        soup.find(class_="hide-article-box text-center csdn-tracking-statistics tracking-click").extract()
+
+    #soup.find(id="article_content").extract()
 
     #保存
     with open(page_name_prettify,"wb") as file:
-        print(soup.prettify)
-        print(soup.original_encoding)
+        # print(soup.prettify)
+        # print(soup.original_encoding)
         # print(word_soup.prettify(word_soup.original_encoding))
         file.write(bytes(soup.prettify(formatter="html"),encoding ='utf-8'))
 

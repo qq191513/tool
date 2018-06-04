@@ -1,4 +1,4 @@
-#include <cstdlib>
+ï»¿#include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,7 +10,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
 	//string dirPath = "F:\\Test\\Cplusplus_test\\myResearch\\train_fist\\tool\\tools\\temp\\negative\\";
-	string dirPath = "F:\\datas\\ÊÖÕÆ\\";
+	string dirPath = "F:\\datas\\æ‰‹æŽŒ\\";
 	string save_dir = dirPath + "bmp\\";
 
 	string picPath = dirPath + "*.jpg";

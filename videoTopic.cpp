@@ -1,4 +1,4 @@
-#include <opencv2/opencv.hpp>
+ï»¿#include <opencv2/opencv.hpp>
 #include <sstream>
 
 using namespace std;
@@ -17,19 +17,19 @@ int main()
 
 	VideoCapture video;
 	vector<int> compression_params;
-	compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);  //Ñ¡Ôñjpeg
+	compression_params.push_back(CV_IMWRITE_JPEG_QUALITY);  //é€‰æ‹©jpeg
 
-	//ÒªÌîµÄ²ÎÊı
-	compression_params.push_back(50); //ÔÚÕâ¸öÌîÈëÄãÒªµÄÍ¼Æ¬ÖÊÁ¿£º1µ½100
+	//è¦å¡«çš„å‚æ•°
+	compression_params.push_back(50); //åœ¨è¿™ä¸ªå¡«å…¥ä½ è¦çš„å›¾ç‰‡è´¨é‡ï¼š1åˆ°100
 	video.open("F:\\datas\\video_test\\video2018_5_15\\palm_video\\palm5.mp4");
-	int last_index = 369;  //ÅÅĞò£¬ÉÏ¸öÊÓÆµµÚ¼¸ÕÅÁË
+	int last_index = 369;  //æ’åºï¼Œä¸Šä¸ªè§†é¢‘ç¬¬å‡ å¼ äº†
 	string picName = "palm_";
 	string save_dir = "F:\\datas\\video_test\\video2018_5_15\\palm_pics\\";
-	int scale_of_cols_reduction = 3;//colsËõĞ¡±ÈÀı
-	int scale_of_rows_reduction = 2;//rowsËõĞ¡±ÈÀı
-	int flip_index = 0; //0,1,-1 Èı¸ö·­×ªÖ¸Êı
-	int transpose_index = 1; //Ğı×ª´ÎÊı
-	const int save_frequency = 10;   //Ã¿¶àÉÙÖ¡±£´æÒ»ÕÅ
+	int scale_of_cols_reduction = 3;//colsç¼©å°æ¯”ä¾‹
+	int scale_of_rows_reduction = 2;//rowsç¼©å°æ¯”ä¾‹
+	int flip_index = 0; //0,1,-1 ä¸‰ä¸ªç¿»è½¬æŒ‡æ•°
+	int transpose_index = 1; //æ—‹è½¬æ¬¡æ•°
+	const int save_frequency = 10;   //æ¯å¤šå°‘å¸§ä¿å­˜ä¸€å¼ 
 
 	string tmpName;
 	Mat  dstImage;
@@ -52,16 +52,16 @@ int main()
 			tmpName = picName + index;
 			cout << " save picture : " << tmpName << endl;
 
-			//³ß´çµ÷Õû
+			//å°ºå¯¸è°ƒæ•´
 			resize(frame, dstImage, Size(frame.cols / scale_of_cols_reduction, frame.rows / scale_of_rows_reduction), 0, 0, INTER_LINEAR);
 
-			//ÏÔÊ¾ĞÅÏ¢
+			//æ˜¾ç¤ºä¿¡æ¯
 		
 			cout << "old cols : " << frame.cols << " old rows : " << frame.rows << endl;
 			cout << "new cols : " << dstImage.cols << " new rows : " << dstImage.rows  << endl;
 		
 
-			//Ğı×ª´¦Àí
+			//æ—‹è½¬å¤„ç†
 			for (int k = 0;k< transpose_index;k++)
 			{
 				Mat dstImage_transpose;
@@ -73,7 +73,7 @@ int main()
 			
 			
 
-			//·­×ª´¦Àí
+			//ç¿»è½¬å¤„ç†
 			//Mat dstImage_flip_1;
 			//flip(dstImage, dstImage_flip_1, 0);
 			//imshow("dstImage_flip_1", dstImage_flip_1);
@@ -91,7 +91,7 @@ int main()
 			//imwrite(save_dir + "flip_3_" + tmpName, dstImage, compression_params);
 
 
-			//±£´æ
+			//ä¿å­˜
 			//imshow("dstImage", dstImage);
 			//imwrite(save_dir + tmpName, dstImage, compression_params);
 			ss.clear();
@@ -104,7 +104,7 @@ int main()
 	}
 
 	cout << " --------------------------" << endl;
-	cout << " Work done! press 'q' exit ¡£" << endl;
+	cout << " Work done! press 'q' exit ã€‚" << endl;
 	cout << "---------------------------" << endl;
 
 	/*while ((char)waitKey(0) != 27) {
@@ -122,7 +122,7 @@ void int2str(const int &int_temp, string &string_temp)
 {
 	stringstream stream;
 	stream << int_temp;
-	string_temp = stream.str();   //´Ë´¦Ò²¿ÉÒÔÓÃ stream>>string_temp  
+	string_temp = stream.str();   //æ­¤å¤„ä¹Ÿå¯ä»¥ç”¨ stream>>string_temp  
 }
 
 
