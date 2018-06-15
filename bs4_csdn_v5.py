@@ -150,7 +150,7 @@ if __name__ == '__main__':
     if url.find('csdn.net') != -1:
         save_csdn()
 
-
+    #保存cnblogs的文章
     if url.find('cnblogs.com') != -1:
         save_cnblogs()
     #之后自己手工用火狐或google浏览器打开然后按A3类型纸张打印成pdf，
