@@ -15,3 +15,5 @@ get_batch_pictures_ROI.cpp 批量手工截取ROI
 compress_pic.cpp 图片压缩
 
 many_pictures_divide_into_groups.cpp 把大量图片分组
+
+pdf_split_two_part 分割pdf
