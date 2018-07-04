@@ -89,7 +89,7 @@ if __name__ == '__main__':
     #         print(full_path)
     # mergePdf(dirlist,save_file )
 
-
+    #3、删除pdf
     in_File = 'merged_part5.pdf'   #输入pdf
     outFile = 'fuck.pdf'   #输出pdf
     delete_start = 5  #删除开始的页码
