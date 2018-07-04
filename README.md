@@ -16,4 +16,4 @@ compress_pic.cpp 图片压缩
 
 many_pictures_divide_into_groups.cpp 把大量图片分组
 
-pdf_split_or_merge 分割或者合并pdf
+pdf_split_or_merge_or_delete 分割、合并、删除pdf
