@@ -20,10 +20,16 @@ many_pictures_divide_into_groups.cpp 把大量图片分组
 
 pdf_split_or_merge_or_delete 分割、合并、删除pdf
 
-bashrc.txt 标准环境变量
+bashrc.txt 标准bashrc环境变量
 
 h5py_to_pics.py 把h5py转成图片
 
 pics_to_h5py.py 把图片转成h5py
+
+proxyenv.txt 设置代理
+
+unproxyenv.txt 取消代理
+
+general set 一般设置
 
 

@@ -1,0 +1,1 @@
+.svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;*ckpt*;*.pb
