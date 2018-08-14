@@ -1,6 +1,6 @@
 # tool
 
-bs4_csdn.py 爬虫用bs4保存csdn文章，然后自己手工打印成pdf
+drawing_analyzer 用matplotlib画分析图
 
 videoTopic.cpp 视频转图片
 
@@ -32,4 +32,4 @@ unproxyenv.txt 取消代理
 
 general set 一般设置
 
-
+bs4_csdn.py 爬虫(bs4)保存csdn文章
