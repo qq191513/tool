@@ -43,7 +43,7 @@ def curve_smooth(data_list, batch_size=100):
 
 def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,description_dict={}):
 	colors=['b','r','y','k','c','m','g',]
-	line_styles= ['^','+','x',':','s','*','o','D','.']
+	line_styles= ['^','+','x',':','o','*','s','D','.']
 	plt.title(description_dict['title'])
 	plt.xlabel(description_dict['xlabel'])
 	plt.ylabel(description_dict['ylabel'])
@@ -63,36 +63,49 @@ def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,description_dict={}
 	plt.show()
 
 if __name__ =='__main__':
-	file_path = 'train_log.txt'
+    file_path = 'train_log.txt'
+    file_path_1 = 'train_N1_log.txt'
 
-	#从文件中正则re获取全部y轴的值
-	y_re_dict = OrderedDict()
-	y_re_dict['net1_list']=r'net1: ([\d\.]+)'
-	y_re_dict['net2_list']=r'net2: ([\d\.]+)'
-	y_re_dict['net3_list']=r'net3: ([\d\.]+)'
-	y_re_dict['decision_prediction_list']=r'decision_prediction: ([\d\.]+)'
-	y_datas_dict = get_parameters_list(path = file_path ,re_dict= y_re_dict)
+    # 从文件中正则re获取全部y轴的值
+    #file_path_1
+    y_re_dict_1 = OrderedDict()
+    y_re_dict_1['net1_list']=r'net1: ([\d\.]+)'
+    y_re_dict_1['net2_list']=r'net2: ([\d\.]+)'
+    y_re_dict_1['net3_list']=r'net3: ([\d\.]+)'
+    y_re_dict_1['decision_prediction_list']=r'decision_prediction: ([\d\.]+)'
+    y_datas_dict_1 = get_parameters_list(path = file_path ,re_dict= y_re_dict_1)
 
-	#从文件中正则re获取全部x轴的值
-	x_re_dict = OrderedDict()
-	x_re_dict['epoch_list']=r'epoch: ([\d]+)'
-	x_re_dict['global_step_list']=r'global_step: ([\d]+)'
-	x_datas_dict = get_parameters_list(path = file_path ,re_dict= x_re_dict)
+    #file_path_2
+    y_re_dict_2 = OrderedDict()
+    y_re_dict_2['net_N1_list'] = r'net1: ([\d\.]+)'
+    y_datas_dict_2 = get_parameters_list(path = file_path_1 ,re_dict= y_re_dict_2)
 
-	#画图显示legend的名字
-	y_datas_legend_dict =OrderedDict()
-	y_datas_legend_dict['net1_list']="net1"
-	y_datas_legend_dict['net2_list']="net2"
-	y_datas_legend_dict['net3_list']="net3"
-	y_datas_legend_dict['decision_prediction_list']="decision_prediction"
+    #两个顺序字典合并
+    y_datas_dict = OrderedDict()
+    y_datas_dict.update(y_datas_dict_1)
+    y_datas_dict.update(y_datas_dict_2)
 
-	#标题、x轴、y轴显示信息
-	description_dict = OrderedDict()
-	description_dict['title'] = 'cifar10 image classification precision'
-	description_dict['xlabel'] = 'epoch'
-	description_dict['ylabel'] = 'accuracy'
+    #从文件中正则re获取全部x轴的值
+    x_re_dict = OrderedDict()
+    x_re_dict['epoch_list']=r'epoch: ([\d]+)'
+    x_re_dict['global_step_list']=r'global_step: ([\d]+)'
+    x_datas_dict = get_parameters_list(path = file_path ,re_dict= x_re_dict)
 
-	#传入字典参数并画图
-	plot_curvev_v2(x_datas_dict['epoch_list'],y_datas_dict,y_datas_legend_dict,description_dict)
+    #画图显示legend的名字
+    y_datas_legend_dict =OrderedDict()
+    y_datas_legend_dict['net1_list']="net_N3_net1"
+    y_datas_legend_dict['net2_list']="net_N3_net2"
+    y_datas_legend_dict['net3_list']="net_N3_net3"
+    y_datas_legend_dict['decision_prediction_list']="net_N3_final_predict"
+    y_datas_legend_dict['net_N1_list']="net_N1"
+
+    #标题、x轴、y轴显示信息
+    description_dict = OrderedDict()
+    description_dict['title'] = 'cifar10 image classification precision'
+    description_dict['xlabel'] = 'epoch'
+    description_dict['ylabel'] = 'accuracy'
+
+    #传入字典参数并画图
+    plot_curvev_v2(x_datas_dict['epoch_list'],y_datas_dict,y_datas_legend_dict,description_dict)
 
 
