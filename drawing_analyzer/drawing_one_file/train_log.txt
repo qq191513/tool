@@ -1,0 +1,83 @@
+epoch: 0 , global_step: 704
+net1: 0.4597 net2: 0.5275 net3: 0.4964 decision_prediction: 0.5216
+epoch: 5 , global_step: 4224 
+net1: 0.7415 net2: 0.7577 net3: 0.7682 decision_prediction: 0.7777
+epoch: 10 , global_step: 7744 
+net1: 0.7801 net2: 0.7884 net3: 0.7913 decision_prediction: 0.8141
+epoch: 15 , global_step: 11264 
+net1: 0.7939 net2: 0.8109 net3: 0.8068 decision_prediction: 0.8311
+epoch: 20 , global_step: 14784 
+net1: 0.8012 net2: 0.8299 net3: 0.8078 decision_prediction: 0.8394
+epoch: 25 , global_step: 18304 
+net1: 0.8131 net2: 0.8234 net3: 0.8127 decision_prediction: 0.8430
+epoch: 30 , global_step: 21824 
+net1: 0.8190 net2: 0.8109 net3: 0.8194 decision_prediction: 0.8394
+epoch: 35 , global_step: 25344 
+net1: 0.8145 net2: 0.8222 net3: 0.8198 decision_prediction: 0.8505
+epoch: 40 , global_step: 28864 
+net1: 0.8155 net2: 0.8167 net3: 0.8165 decision_prediction: 0.8483
+epoch: 45 , global_step: 32384 
+net1: 0.8145 net2: 0.8242 net3: 0.8230 decision_prediction: 0.8511
+epoch: 50 , global_step: 35904 
+net1: 0.8220 net2: 0.8131 net3: 0.8190 decision_prediction: 0.8475
+epoch: 55 , global_step: 39424 
+net1: 0.8145 net2: 0.8127 net3: 0.8137 decision_prediction: 0.8483
+epoch: 60 , global_step: 42944 
+net1: 0.8135 net2: 0.8256 net3: 0.8222 decision_prediction: 0.8517
+epoch: 65 , global_step: 46464 
+net1: 0.8216 net2: 0.8236 net3: 0.8258 decision_prediction: 0.8540
+epoch: 70 , global_step: 49984 
+net1: 0.8135 net2: 0.8263 net3: 0.8240 decision_prediction: 0.8525
+epoch: 75 , global_step: 53504 
+net1: 0.8210 net2: 0.8350 net3: 0.8254 decision_prediction: 0.8614
+epoch: 80 , global_step: 57024 
+net1: 0.8273 net2: 0.8287 net3: 0.8297 decision_prediction: 0.8616
+epoch: 85 , global_step: 60544 
+net1: 0.8206 net2: 0.8335 net3: 0.8315 decision_prediction: 0.8568
+epoch: 90 , global_step: 64064 
+net1: 0.8293 net2: 0.8352 net3: 0.8210 decision_prediction: 0.8619
+epoch: 95 , global_step: 67584 
+net1: 0.8265 net2: 0.8212 net3: 0.8267 decision_prediction: 0.8528
+epoch: 100 , global_step: 71104 
+net1: 0.8299 net2: 0.8347 net3: 0.8192 decision_prediction: 0.8608
+epoch: 105 , global_step: 74624 
+net1: 0.8277 net2: 0.8354 net3: 0.8301 decision_prediction: 0.8621
+epoch: 110 , global_step: 78144 
+net1: 0.8186 net2: 0.8368 net3: 0.8232 decision_prediction: 0.8501
+epoch: 115 , global_step: 81664 
+net1: 0.8291 net2: 0.8319 net3: 0.8252 decision_prediction: 0.8596
+epoch: 120 , global_step: 85184 
+net1: 0.8287 net2: 0.8370 net3: 0.8275 decision_prediction: 0.8582
+epoch: 125 , global_step: 88704 
+net1: 0.8261 net2: 0.8317 net3: 0.8259 decision_prediction: 0.8594
+epoch: 130 , global_step: 92224 
+net1: 0.8287 net2: 0.8335 net3: 0.8226 decision_prediction: 0.8584
+epoch: 135 , global_step: 95744 
+net1: 0.8275 net2: 0.8358 net3: 0.8240 decision_prediction: 0.8580
+epoch: 140 , global_step: 99264 
+net1: 0.8364 net2: 0.8267 net3: 0.8246 decision_prediction: 0.8566
+epoch: 145 , global_step: 102784 
+net1: 0.8358 net2: 0.8402 net3: 0.8291 decision_prediction: 0.8625
+epoch: 150 , global_step: 106304 
+net1: 0.8283 net2: 0.8352 net3: 0.8309 decision_prediction: 0.8576
+epoch: 155 , global_step: 109824 
+net1: 0.8279 net2: 0.8360 net3: 0.8232 decision_prediction: 0.8576
+epoch: 160 , global_step: 113344 
+net1: 0.8337 net2: 0.8370 net3: 0.8307 decision_prediction: 0.8625
+epoch: 165 , global_step: 116864 
+net1: 0.8307 net2: 0.8360 net3: 0.8309 decision_prediction: 0.8619
+epoch: 170 , global_step: 120384 
+net1: 0.8256 net2: 0.8348 net3: 0.8360 decision_prediction: 0.8594
+epoch: 175 , global_step: 123904 
+net1: 0.8289 net2: 0.8380 net3: 0.8301 decision_prediction: 0.8574
+epoch: 180 , global_step: 127424 
+net1: 0.8283 net2: 0.8339 net3: 0.8277 decision_prediction: 0.8560
+epoch: 185 , global_step: 130944 
+net1: 0.8295 net2: 0.8321 net3: 0.8350 decision_prediction: 0.8606
+epoch: 190 , global_step: 134464 
+net1: 0.8265 net2: 0.8358 net3: 0.8323 decision_prediction: 0.8627
+epoch: 195 , global_step: 137984 
+net1: 0.8299 net2: 0.8329 net3: 0.8333 decision_prediction: 0.8608
+epoch: 200 , global_step: 141504 
+net1: 0.8362 net2: 0.8285 net3: 0.8325 decision_prediction: 0.8562
+The code run 362m 43s
