@@ -143,5 +143,8 @@ export PATH=${JAVA_HOME}/bin:$PATH
 #bazel
 export PATH=/home/mo/bin:$PATH
 
+#swig
+SWIG_PATH=/home/mo/software/swig/bin/
+export PATH=$PATH:$SWIG_PATH
 
 
