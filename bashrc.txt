@@ -141,10 +141,9 @@ export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
 export PATH=${JAVA_HOME}/bin:$PATH
 
 #bazel
-export PATH=/home/mo/bin:$PATH
+export PATH=$PATH:/home/mo/tool/bazel/bin
 
 #swig
-SWIG_PATH=/home/mo/software/swig/bin/
-export PATH=$PATH:$SWIG_PATH
+export PATH=$PATH:/home/mo/tool/swig/bin
 
 
