@@ -41,12 +41,13 @@ def curve_smooth(data_list, batch_size=100):
 
 	return new_data_list, idx_list
 
-def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,description_dict={}):
+def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,setting_dict={}):
 	colors=['b','r','y','k','c','m','g',]
 	line_styles= ['^','+','x',':','o','*','s','D','.']
-	plt.title(description_dict['title'])
-	plt.xlabel(description_dict['xlabel'])
-	plt.ylabel(description_dict['ylabel'])
+	# plt.switch_backend('agg')
+	plt.title(setting_dict['title'])
+	plt.xlabel(setting_dict['xlabel'])
+	plt.ylabel(setting_dict['ylabel'])
 	p_legend = []
 	p_legend_name = []
 	y_datas_keys = y_datas_dict.keys()
@@ -59,7 +60,8 @@ def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,description_dict={}
 
 	if p_legend_name is not None:
 		plt.legend(p_legend, p_legend_name,loc='lower right')
-	plt.savefig(description_dict['save_dir_name'], dpi=100, format='png')
+	plt.grid()
+	plt.savefig(setting_dict['save_name'], dpi=100, format='png')
 	plt.show()
 
 if __name__ =='__main__':
@@ -108,13 +110,11 @@ if __name__ =='__main__':
     y_datas_legend_dict['decision_prediction_list_N5']="N5_final_predict"
 
     #标题、x轴、y轴显示信息
-    description_dict = OrderedDict()
-    description_dict['save_dir_name'] = 'cifar10_compare_N3_N5.png'
-    description_dict['title'] = 'Resnet_44_ELA-CNN_v1 classification precision'
-    description_dict['xlabel'] = 'epoch'
-    description_dict['ylabel'] = 'accuracy'
+    setting_dict = OrderedDict()
+    setting_dict['title'] = 'ELA-DCNN classification precision'
+    setting_dict['xlabel'] = 'epoch'
+    setting_dict['ylabel'] = 'accuracy'
+    setting_dict['save_name'] ='cifar10_compare5.png'
 
     #传入字典参数并画图
-    plot_curvev_v2(x_datas_dict['epoch_list'],y_datas_dict,y_datas_legend_dict,description_dict)
-
-
+    plot_curvev_v2(x_datas_dict['epoch_list'],y_datas_dict,y_datas_legend_dict,setting_dict)
