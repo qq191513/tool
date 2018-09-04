@@ -41,58 +41,62 @@ def curve_smooth(data_list, batch_size=100):
 
 	return new_data_list, idx_list
 
-def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,description_dict={}):
-	colors=['b','r','y','k','c','m','g',]
-	line_styles= ['^','+','x',':','s','*','o','D','.']
-	plt.title(description_dict['title'])
-	plt.xlabel(description_dict['xlabel'])
-	plt.ylabel(description_dict['ylabel'])
-	p_legend = []
-	p_legend_name = []
-	y_datas_keys = y_datas_dict.keys()
-	for idx,y_datas_key in enumerate(y_datas_keys):
-		y_data_dict = y_datas_dict[y_datas_key]
-		p, =plt.plot(x, y_data_dict, line_styles[idx], color=colors[idx])
-		p_legend.append(p)
-		if y_datas_legend_dict is not None:
-			p_legend_name.append(y_datas_legend_dict[y_datas_key])
+def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,setting_dict={}):
+    colors=['b','r','y','k','c','m','g',]
+    line_styles= ['^','+','x',':','s','*','o','D','.']
+    # plt.switch_backend('agg')
+    plt.title(setting_dict['title'])
+    plt.xlabel(setting_dict['xlabel'])
+    plt.ylabel(setting_dict['ylabel'])
+    p_legend = []
+    p_legend_name = []
+    y_datas_keys = y_datas_dict.keys()
+    for idx,y_datas_key in enumerate(y_datas_keys):
+        y_data_dict = y_datas_dict[y_datas_key]
+        p, =plt.plot(x, y_data_dict, line_styles[idx], color=colors[idx])
+        p_legend.append(p)
+        if y_datas_legend_dict is not None:
+            p_legend_name.append(y_datas_legend_dict[y_datas_key])
 
-	if p_legend_name is not None:
-		plt.legend(p_legend, p_legend_name,loc='lower right')
-	plt.savefig('cifar10_compare.png', dpi=100, format='png')
-	plt.show()
+    if p_legend_name is not None:
+        plt.legend(p_legend, p_legend_name,loc='lower right')
+
+    
+    plt.grid()
+    plt.savefig(setting_dict['save_name'], dpi=100, format='png')
+    plt.show()
 
 if __name__ =='__main__':
-	file_path = 'train_log.txt'
+    file_path = 'train_log.txt'
 
-	#从文件中正则re获取全部y轴的值
-	y_re_dict = OrderedDict()
-	y_re_dict['net1_list']=r'net1: ([\d\.]+)'
-	y_re_dict['net2_list']=r'net2: ([\d\.]+)'
-	y_re_dict['net3_list']=r'net3: ([\d\.]+)'
-	y_re_dict['decision_prediction_list']=r'decision_prediction: ([\d\.]+)'
-	y_datas_dict = get_parameters_list(path = file_path ,re_dict= y_re_dict)
+    #从文件中正则re获取全部y轴的值
+    y_re_dict = OrderedDict()
+    y_re_dict['net1_list']=r'net1: ([\d\.]+)'
+    y_re_dict['net2_list']=r'net2: ([\d\.]+)'
+    y_re_dict['net3_list']=r'net3: ([\d\.]+)'
+    y_re_dict['decision_prediction_list']=r'decision_prediction: ([\d\.]+)'
+    y_datas_dict = get_parameters_list(path = file_path ,re_dict= y_re_dict)
 
-	#从文件中正则re获取全部x轴的值
-	x_re_dict = OrderedDict()
-	x_re_dict['epoch_list']=r'epoch: ([\d]+)'
-	x_re_dict['global_step_list']=r'global_step: ([\d]+)'
-	x_datas_dict = get_parameters_list(path = file_path ,re_dict= x_re_dict)
+    #从文件中正则re获取全部x轴的值
+    x_re_dict = OrderedDict()
+    x_re_dict['epoch_list']=r'epoch: ([\d]+)'
+    x_re_dict['global_step_list']=r'global_step: ([\d]+)'
+    x_datas_dict = get_parameters_list(path = file_path ,re_dict= x_re_dict)
 
-	#画图显示legend的名字
-	y_datas_legend_dict =OrderedDict()
-	y_datas_legend_dict['net1_list']="net1"
-	y_datas_legend_dict['net2_list']="net2"
-	y_datas_legend_dict['net3_list']="net3"
-	y_datas_legend_dict['decision_prediction_list']="decision_prediction"
+    #画图显示legend的名字
+    y_datas_legend_dict =OrderedDict()
+    y_datas_legend_dict['net1_list']="net1"
+    y_datas_legend_dict['net2_list']="net2"
+    y_datas_legend_dict['net3_list']="net3"
+    y_datas_legend_dict['decision_prediction_list']="decision_prediction"
 
-	#标题、x轴、y轴显示信息
-	description_dict = OrderedDict()
-	description_dict['title'] = 'cifar10 image classification precision'
-	description_dict['xlabel'] = 'epoch'
-	description_dict['ylabel'] = 'accuracy'
-
-	#传入字典参数并画图
-	plot_curvev_v2(x_datas_dict['epoch_list'],y_datas_dict,y_datas_legend_dict,description_dict)
+    #标题、x轴、y轴显示信息
+    setting_dict = OrderedDict()
+    setting_dict['title'] = 'cifar10 image classification precision'
+    setting_dict['xlabel'] = 'epoch'
+    setting_dict['ylabel'] = 'accuracy'
+    setting_dict['save_name'] = 'cifar10_compare5.png'
+    #传入字典参数并画图
+    plot_curvev_v2(x_datas_dict['epoch_list'],y_datas_dict,y_datas_legend_dict,setting_dict)
 
 
