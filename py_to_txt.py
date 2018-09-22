@@ -20,14 +20,27 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
     for f1 in fs:
         tmp_path = os.path.join(f, f1)
         if not os.path.isdir(tmp_path):
-            tmp_path_last= tmp_path.split('/')[-1]
+            tmp_path_list= tmp_path.split('/')
+            tmp_path_last= tmp_path_list[-1]   #取最后一个名字
+            tmp_path_first= tmp_path_list[0]  #取第一个名字
             if old_suffix_1 in tmp_path_last and '.pyc' not in tmp_path_last:
+
+                #改最后一个名字
                 dirname = os.path.dirname(tmp_path)
-                new_name_1 = tmp_path_last.split('.')[0]
-                new_name_2 = new_name_1 + '.'+new_suffix
-                new_dir = os.path.join(dirname,new_name_2)
-                new_dir = 'new_txt_'+ new_dir
-                # print('new_dir: %s' % new_dir)
+                new_name_last_1 = tmp_path_last.split('.')[0]
+                new_name_last_2 = new_name_last_1 + '.'+new_suffix
+
+                #改第一个名字
+                new_name_first_1 = tmp_path_first + '_new'+'_'+new_suffix
+
+                #放回列表
+                tmp_path_list[0] = new_name_first_1
+                tmp_path_list[-1] = new_name_last_2
+
+                #重新合并得new_dir
+                new_dir= '/'.join(tmp_path_list)
+
+                #复制到new_dir
                 mycopyfile(tmp_path,new_dir)
 
                 # 头说明
