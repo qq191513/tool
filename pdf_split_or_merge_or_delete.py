@@ -6,7 +6,7 @@ def split_pdf_to_two_part(in_File,outFile_1,outFile_2,split_number):
     pdfFileWriter_1 = PdfFileWriter()
     pdfFileWriter_2 = PdfFileWriter()
     # 获取 PdfFileReader 对象
-    pdfFileReader = PdfFileReader(in_File)  # 或者这个方式：pdfFileReader = PdfFileReader(open(readFile, 'rb'))
+    pdfFileReader = PdfFileReader(in_File,strict=False)  # 或者这个方式：pdfFileReader = PdfFileReader(open(readFile, 'rb'))
     # 文档总页数
     numPages = pdfFileReader.getNumPages()
 
@@ -28,7 +28,7 @@ def delete_pdf(readFile,outFile,delete_start,delete_end):
     pdfFileWriter = PdfFileWriter()
 
     # 获取 PdfFileReader 对象
-    pdfFileReader = PdfFileReader(readFile)  # 或者这个方式：pdfFileReader = PdfFileReader(open(readFile, 'rb'))
+    pdfFileReader = PdfFileReader(readFile,strict=False)  # 或者这个方式：pdfFileReader = PdfFileReader(open(readFile, 'rb'))
     # 文档总页数
     numPages = pdfFileReader.getNumPages()
 
@@ -58,7 +58,7 @@ def mergePdf(inFileList, outFile):
     pdfFileWriter = PdfFileWriter()
     for inFile in inFileList:
         # 依次循环打开要合并文件
-        pdfReader = PdfFileReader(open(inFile, 'rb'))
+        pdfReader = PdfFileReader(open(inFile, 'rb'),strict=False)
         numPages = pdfReader.getNumPages()
         for index in range(0, numPages):
             print(inFile ,"merge: %d " % (index +1))
