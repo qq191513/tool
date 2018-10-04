@@ -6,7 +6,7 @@ def split_pdf_to_two_part(in_File,outFile_1,outFile_2,split_number):
     pdfFileWriter_1 = PdfFileWriter()
     pdfFileWriter_2 = PdfFileWriter()
     # 获取 PdfFileReader 对象
-    pdfFileReader = PdfFileReader(in_File)  # 或者这个方式：pdfFileReader = PdfFileReader(open(readFile, 'rb'))
+    pdfFileReader = PdfFileReader(in_File,strict=False)  # 或者这个方式：pdfFileReader = PdfFileReader(open(readFile, 'rb'))
     # 文档总页数
     numPages = pdfFileReader.getNumPages()
 
@@ -90,8 +90,16 @@ if __name__ == '__main__':
     mergePdf(dirlist,save_file )
 
     #3、删除pdf
+<<<<<<< HEAD
     # in_File = 'merged_part5.pdf'   #输入pdf
     # outFile = 'fuck.pdf'   #输出pdf
     # delete_start = 5  #删除开始的页码
     # delete_end = 5    #删除最后的页码
     # delete_pdf(readFile = in_File, outFile = outFile , delete_start =delete_start, delete_end =delete_end)
+=======
+    in_File = 'merged_part5.pdf'   #输入pdf
+    outFile = 'fuck.pdf'   #输出pdf
+    delete_start = 5  #删除开始的页码
+    delete_end = 5    #删除最后的页码
+    delete_pdf(readFile = in_File, outFile = outFile , delete_start =delete_start, delete_end =delete_end)
+>>>>>>> d6753c1493c2cff2ccad8290af745894e1f42b85
