@@ -90,22 +90,14 @@ if __name__ == '__main__':
     mergePdf(dirlist,save_file )
 
     #3、删除pdf
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 35bfba51f6d5db9dd7725de7c342fd200681f7ec
     # in_File = 'merged_part5.pdf'   #输入pdf
     # outFile = 'fuck.pdf'   #输出pdf
     # delete_start = 5  #删除开始的页码
     # delete_end = 5    #删除最后的页码
     # delete_pdf(readFile = in_File, outFile = outFile , delete_start =delete_start, delete_end =delete_end)
-<<<<<<< HEAD
-=======
+
     in_File = 'merged_part5.pdf'   #输入pdf
     outFile = 'fuck.pdf'   #输出pdf
     delete_start = 5  #删除开始的页码
     delete_end = 5    #删除最后的页码
     delete_pdf(readFile = in_File, outFile = outFile , delete_start =delete_start, delete_end =delete_end)
->>>>>>> d6753c1493c2cff2ccad8290af745894e1f42b85
-=======
->>>>>>> 35bfba51f6d5db9dd7725de7c342fd200681f7ec
