@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 
 import os,shutil
+import platform
 file_list = []
-
+sysstr = platform.system()
 def mycopyfile(srcfile,dstfile):
     if not os.path.isfile(srcfile):
-        print "%s not exist!"%(srcfile)
+        print("%s not exist!"%(srcfile))
     else:
         fpath,fname=os.path.split(dstfile)    #分离文件名和路径
         if not os.path.exists(fpath):
             os.makedirs(fpath)                #创建路径
         shutil.copyfile(srcfile,dstfile)      #复制文件
-        print "copy %s -> %s"%(srcfile,dstfile)
+        print("copy %s -> %s"%(srcfile,dstfile))
 
 
 def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
@@ -20,7 +21,10 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
     for f1 in fs:
         tmp_path = os.path.join(f, f1)
         if not os.path.isdir(tmp_path):
-            tmp_path_list= tmp_path.split('/')
+            if (sysstr == "Windows"):
+                tmp_path_list= tmp_path.split('\\')
+            else:
+                tmp_path_list = tmp_path.split('/')
             tmp_path_last= tmp_path_list[-1]   #取最后一个名字
             tmp_path_first= tmp_path_list[0]  #取第一个名字
             if old_suffix_1 in tmp_path_last and '.pyc' not in tmp_path_last:
@@ -45,7 +49,7 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
 
                 # 头说明
                 if head_show:
-                    with open(new_dir, 'r+') as open_f:
+                    with open(new_dir, 'r+',encoding = 'utf-8') as open_f:
                         content = open_f.read()
                         open_f.seek(0, 0)
                         message = '路径：' + tmp_path + '\n'
@@ -60,7 +64,7 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
 
 
 #全部转换并返回转换的列表
-path = 'tf-faster-rcnn-master'
+path = 'ocr_tensorflow_cnn-master'
 file_list = traverse(path,old_suffix='py',new_suffix='txt',head_show=True)
 
 
