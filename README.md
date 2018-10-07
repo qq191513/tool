@@ -1,8 +1,4 @@
 # tool
-py_to_txt.py  全项目py转txt格式 2018/09/22
-
-drawing_analyzer 用matplotlib画分析图 2018/08/14
-
 videoTopic.cpp 视频转图片
 
 batch_resize_pic 批量resize图片大小
@@ -34,3 +30,12 @@ unproxyenv.txt 取消代理
 general set 一般设置
 
 bs4_csdn.py 爬虫(bs4)保存csdn文章
+
+drawing_analyzer 用matplotlib画分析图 2018/08/14
+
+py_to_txt.py  全项目py转txt格式 2018/09/22
+
+tf_test.py 测试环境 2018/10/07
+
+
+
