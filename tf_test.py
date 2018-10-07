@@ -1,4 +1,4 @@
-#encoding:utf-8
+#coding:utf-8
 from tensorflow.examples.tutorials.mnist import input_data
 import tensorflow as tf
 
@@ -24,7 +24,13 @@ cross_entropy = tf.reduce_mean(
 train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 
 # Init model
-sess = tf.InteractiveSession()
+#allow growth
+config = tf.ConfigProto()
+config.gpu_options.allow_growth = True
+sess = tf.Session(config=config)
+# 使用allow_growth option，刚一开始分配少量的GPU容量，然后按需慢慢的增加，由于不会释放
+#内存，所以会导致碎片
+
 tf.global_variables_initializer().run()
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
