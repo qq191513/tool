@@ -2,6 +2,8 @@
 
 import os,shutil
 import platform
+from sys import version_info
+
 file_list = []
 sysstr = platform.system()
 def mycopyfile(srcfile,dstfile):
@@ -49,12 +51,20 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
 
                 # 头说明
                 if head_show:
-                    with open(new_dir, 'r+',encoding = 'utf-8') as open_f:
-                        content = open_f.read()
-                        open_f.seek(0, 0)
-                        message = '路径：' + tmp_path + '\n'
-                        print('message: %s' % tmp_path)
-                        open_f.write(message + content)
+                    if version_info.major == 3:
+                        with open(new_dir, 'r+',encoding = 'utf-8') as open_f:
+                            content = open_f.read()
+                            open_f.seek(0, 0)
+                            message = '路径：' + tmp_path + '\n'
+                            print('message: %s' % tmp_path)
+                            open_f.write(message + content)
+                    else:
+                        with open(new_dir, 'r+') as open_f:
+                            content = open_f.read()
+                            open_f.seek(0, 0)
+                            message = '路径：' + tmp_path + '\n'
+                            print('message: %s' % tmp_path)
+                            open_f.write(message + content)
                 file_list.append(new_dir)
         else:
             traverse(tmp_path,old_suffix=old_suffix,new_suffix=new_suffix,head_show=head_show)
@@ -64,7 +74,7 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
 
 
 #全部转换并返回转换的列表
-path = 'ocr_tensorflow_cnn-master'
+path = 'chinese-ocr-master'
 file_list = traverse(path,old_suffix='py',new_suffix='txt',head_show=True)
 
 
