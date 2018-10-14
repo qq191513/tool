@@ -1,0 +1,43 @@
+1、更新清华源
+conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --set show_channel_urls yes
+cat ~/.condarc
+
+2、安装pytorch: 
+conda install pytorch torchvision -c pytorch             #cuda80版本
+conda install pytorch torchvision cuda90 -c pytorch      #cuda90版本
+conda install pytorch-cpu torchvision-cpu -c pytorch     #cpu版本
+
+3、安装opencv3
+（1）linux版本
+conda install --channel https://conda.anaconda.org/menpo opencv3
+（2）windows版本
+pip install opencv-python 
+pip install opencv-contrib-python
+
+4、安装QT5
+（1）安装designer
+pip install PyQt5-tools
+（2）安装pyqt5
+pip install pyqt5 
+（3）校验
+from PyQt5 import QtWidgets, QtGui
+import sys
+app = QtWidgets.QApplication(sys.argv)
+window = QtWidgets.QWidget();
+window.show()
+sys.exit(app.exec_())
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -37,5 +37,7 @@ py_to_txt.py  全项目py转txt格式 2018/09/22
 
 tf_test.py 测试环境 2018/10/07
 
+general command.txt 常用命令 2018/10/14
+
 
 
