@@ -79,7 +79,7 @@ if __name__ == '__main__':
     # split_pdf_to_two_part(in_File,outFile_1,outFile_2,split_number)
 
     #2、合并pdf
-    merge_dir = 'mydir' #pdf的目录位置
+    merge_dir = 'mydir' #pdf存放的文件夹
     save_file = 'fuck.pdf' #合并后的pdf名字
     dirlist = []
     for root,dirs,files in os.walk(merge_dir):
@@ -96,8 +96,3 @@ if __name__ == '__main__':
     # delete_end = 5    #删除最后的页码
     # delete_pdf(readFile = in_File, outFile = outFile , delete_start =delete_start, delete_end =delete_end)
 
-    in_File = 'merged_part5.pdf'   #输入pdf
-    outFile = 'fuck.pdf'   #输出pdf
-    delete_start = 5  #删除开始的页码
-    delete_end = 5    #删除最后的页码
-    delete_pdf(readFile = in_File, outFile = outFile , delete_start =delete_start, delete_end =delete_end)
