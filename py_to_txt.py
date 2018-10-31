@@ -6,7 +6,10 @@ from sys import version_info
 
 file_list = []
 sysstr = platform.system()
+global copy_index
+copy_index = 1
 def mycopyfile(srcfile,dstfile):
+    global copy_index
     if not os.path.isfile(srcfile):
         print("%s not exist!"%(srcfile))
     else:
@@ -14,7 +17,8 @@ def mycopyfile(srcfile,dstfile):
         if not os.path.exists(fpath):
             os.makedirs(fpath)                #创建路径
         shutil.copyfile(srcfile,dstfile)      #复制文件
-        print("copy %s -> %s"%(srcfile,dstfile))
+        print("%d copy %s -> %s"%(copy_index,srcfile,dstfile))
+        copy_index = copy_index + 1
 
 
 def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
@@ -56,14 +60,14 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
                             content = open_f.read()
                             open_f.seek(0, 0)
                             message = '路径：' + tmp_path + '\n'
-                            print('message: %s' % tmp_path)
+                            # print('message: %s' % tmp_path)
                             open_f.write(message + content)
                     else:
                         with open(new_dir, 'r+') as open_f:
                             content = open_f.read()
                             open_f.seek(0, 0)
                             message = '路径：' + tmp_path + '\n'
-                            print('message: %s' % tmp_path)
+                            # print('message: %s' % tmp_path)
                             open_f.write(message + content)
                 file_list.append(new_dir)
         else:
@@ -74,7 +78,7 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
 
 
 #全部转换并返回转换的列表
-path = 'chinese-ocr-master'
+path = 'Matrix-Capsules-EM'
 file_list = traverse(path,old_suffix='py',new_suffix='txt',head_show=True)
 
 
