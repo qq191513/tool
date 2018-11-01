@@ -4,6 +4,17 @@ import tensorflow as tf
 import os
 from six.moves import urllib
 
+#文件名
+dir = 'mnist_data'
+TRAIN_IMAGES = 'train-images-idx3-ubyte.gz'
+TRAIN_LABELS = 'train-labels-idx1-ubyte.gz'
+TEST_IMAGES = 't10k-images-idx3-ubyte.gz'
+TEST_LABELS = 't10k-labels-idx1-ubyte.gz'
+
+#路径
+if not os.path.exists(dir):
+    os.system('mkdir mnist_data')
+
 #下载数据集
 def maybe_download(filename, work_directory):
     SOURCE_URL = 'http://yann.lecun.com/exdb/mnist/'
@@ -15,22 +26,12 @@ def maybe_download(filename, work_directory):
         statinfo = os.stat(filepath)
         print('Successfully downloaded', filename, statinfo.st_size, 'bytes.')
     return filepath
-
-
-dir = 'mnist_data'
-if not os.path.exists(dir):
-    os.system('mkdir mnist_data')
-
-TRAIN_IMAGES = 'train-images-idx3-ubyte.gz'
-TRAIN_LABELS = 'train-labels-idx1-ubyte.gz'
-TEST_IMAGES = 't10k-images-idx3-ubyte.gz'
-TEST_LABELS = 't10k-labels-idx1-ubyte.gz'
-VALIDATION_SIZE = 5000
 local_file = maybe_download(TRAIN_IMAGES, dir)
 local_file = maybe_download(TRAIN_LABELS, dir)
 local_file = maybe_download(TEST_IMAGES, dir)
 local_file = maybe_download(TEST_LABELS, dir)
 
+#读取数据集
 mnist = input_data.read_data_sets(dir, one_hot=True)
 
 print(mnist.train.images.shape, mnist.train.labels.shape)
@@ -39,15 +40,14 @@ print(mnist.validation.images.shape, mnist.validation.labels.shape)
 
 # Create the model
 x = tf.placeholder(tf.float32, [None, 784])
+y = tf.placeholder(tf.float32, [None, 10])
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
-y = tf.matmul(x, W) + b  # y=wx+b
+pred = tf.matmul(x, W) + b  # y=wx+b
 
 # Define loss and optimizer
-y_ = tf.placeholder(tf.float32, [None, 10])
-
 cross_entropy = tf.reduce_mean(
-    tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
+    tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=pred))
 train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 
 
@@ -63,15 +63,15 @@ session_config = tf.ConfigProto(
                 allow_soft_placement=True)
 sess = tf.Session(config=session_config)
 sess.run(tf.global_variables_initializer())
-correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(pred, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 # Train loop
 for i in range(100000):
     batch_xs, batch_ys = mnist.train.next_batch(100)
-    sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
+    sess.run(train_step, feed_dict={x: batch_xs, y: batch_ys})
     if (i % 100 == 0):
-        print(i, sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+        print(i, sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}))
 
 # Test trained model
-print(sess.run(accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels}))
+print(sess.run(accuracy, feed_dict={x: mnist.test.images, y: mnist.test.labels}))
