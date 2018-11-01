@@ -4,7 +4,7 @@ import tensorflow as tf
 import os
 from six.moves import urllib
 
-
+#下载数据集
 def maybe_download(filename, work_directory):
     SOURCE_URL = 'http://yann.lecun.com/exdb/mnist/'
     if not os.path.exists(work_directory):
@@ -37,7 +37,7 @@ print(mnist.train.images.shape, mnist.train.labels.shape)
 print(mnist.test.images.shape, mnist.train.labels.shape)
 print(mnist.validation.images.shape, mnist.validation.labels.shape)
 
-# 2.Create the model
+# Create the model
 x = tf.placeholder(tf.float32, [None, 784])
 W = tf.Variable(tf.zeros([784, 10]))
 b = tf.Variable(tf.zeros([10]))
@@ -50,18 +50,23 @@ cross_entropy = tf.reduce_mean(
     tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
 train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 
-# Init model
-# allow growth
-config = tf.ConfigProto()
-config.gpu_options.allow_growth = True
-sess = tf.Session(config=config)
-# 使用allow_growth option，刚一开始分配少量的GPU容量，然后按需慢慢的增加，由于不会释放
-# 内存，所以会导致碎片
 
+# 1、使用allow_growth option，刚一开始分配少量的GPU容量，然后按需慢慢的增加，由于不会释放内存，所以会导致碎片
+# 2、visible_device_list指定使用的GPU设备号；
+# 3、allow_soft_placement如果指定的设备不存在，允许TF自动分配设备
+# 4、per_process_gpu_memory_fraction  指定每个可用GPU上的显存分配比
+session_config = tf.ConfigProto(
+            device_count={'GPU': 0},
+            gpu_options={'allow_growth': 1,
+                # 'per_process_gpu_memory_fraction': 0.1,
+                'visible_device_list': '0'},
+                allow_soft_placement=True)
+sess = tf.Session(config=session_config)
 sess.run(tf.global_variables_initializer())
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-# Train
+
+# Train loop
 for i in range(100000):
     batch_xs, batch_ys = mnist.train.next_batch(100)
     sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
