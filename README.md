@@ -33,11 +33,13 @@ bs4_csdn.py 爬虫(bs4)保存csdn文章
 
 drawing_analyzer 用matplotlib画分析图 2018/08/14
 
-py_to_txt.py  全项目py转txt格式 2018/09/22
+py_to_txt.py  全项目py转txt格式,保存到新文件夹 2018/09/22
 
 tf_test.py 测试环境 2018/10/07
 
 general command.txt 常用命令 2018/10/14
 
-video_to_pics.py 批视频转图片 2018/11/4
+video_to_pics.py 批视频转图片,保存到新文件夹 2018/11/4
+
+pics_resize.py 批图片resize,保存到新文件夹 2018/11/4
 

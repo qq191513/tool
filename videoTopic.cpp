@@ -1,4 +1,6 @@
-﻿#include <opencv2/opencv.hpp>
+﻿# -*- encoding: utf-8 -*-
+# author: mo weilong
+#include <opencv2/opencv.hpp>
 #include <sstream>
 
 using namespace std;
