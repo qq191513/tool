@@ -39,5 +39,5 @@ tf_test.py 测试环境 2018/10/07
 
 general command.txt 常用命令 2018/10/14
 
-vedio_to_pics.py 批视频转图片 2018/11/4
+video_to_pics.py 批视频转图片 2018/11/4
 
