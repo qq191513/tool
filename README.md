@@ -43,4 +43,8 @@ video_to_pics.py 批视频转图片（单层或多层文件夹）,保存到新�
 
 pics_resize_and_convert_to_gray.py 批图片resize和转gray（单层或多层文件夹）,保存到新文件夹 2018/11/4
 
-convert_to_tfrecord.py 图片转成tfrecord文件（双层文件夹）,保存到新文件夹 2018/11/5
+convert_jpg_to_tfrecord.py 图片转成tfrecord文件（双层文件夹）,保存到新文件夹 2018/11/5
+
+read_tf_and_show_pics.py 解码tfrecord文件并用cv2显示 2018/11/5
+
+
