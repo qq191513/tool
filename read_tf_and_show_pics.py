@@ -14,15 +14,16 @@ reshape_size =(32,32,1)
 
 def ReadTFRecord(tfrecords,example_name):
     # [tfrecords]为文件列表
-    record_queue = tf.train.string_input_producer([tfrecords],
-        shuffle=False, num_epochs=5)
-    # eg :  tf.train.string_input_producer(['a.txt','b.txt'])
+    record_queue = tf.train.string_input_producer([tfrecords])  #当只有一个tfrecords时
+    # record_queue = tf.train.string_input_producer([tfrecords],
+    #     shuffle=False, num_epochs=5)   #当有多个tfrecords时
+    # eg :  tf.train.string_input_producer(['a.txt','b.txt'])   此函数针对调用tfrecord文件
     # 如果仅有一个文件名，其实就没必要使用此函数了，
     # shuffle = False意味着让文件名洗乱，num_epochs=5让每个文件被使用5次
     # 返回：文件队列queue
     # 后面配合tf.TFRecordReader()函数使用
 
-    # 区别：输入队列tf.train.slice_input_producer
+    # 区别：输入队列tf.train.slice_input_producer 此函数针对调用'*.jpg'、'*.bmp'，nparray等的图片
     # 功能：分割和读取输入的数据集,传入图片路径，函数返回张量队列queue
     # 使用前需要将features和labels包装成tensorflow的tensor对象
     # imgpath=tf.convert_to_tensor(imgpath)），其中input_data为'*.jpg'、'*.bmp'等路径的图片
@@ -45,11 +46,12 @@ def ReadTFRecord(tfrecords,example_name):
     features = tf.parse_single_example(serialized_ex,
             features={
                 # 取出key为img_raw和label的数据,尤其是int位数一定不能错!!!
-                example_name['image']: tf.FixedLenFeature([],tf.string),
+                example_name['image']: tf.FixedLenFeature([],tf.string),  #读取方式tf.string
                 example_name['label']: tf.FixedLenFeature([], tf.int64)
             })
-    img = tf.decode_raw(features[example_name['image']], tf.uint8)
 
+    # 关系：编码tf.train.BytesList----> 读取方式tf.string------>常规格式化tf.uint8（但是有的人解码成tf.flaot64后面reshape竟然不报错）
+    img = tf.decode_raw(features[example_name['image']], tf.uint8)
     # 注意定义的为int多少位就转换成多少位,否则容易出错!!
     label = tf.cast(features[example_name['label']], tf.int64)
     return img, label

@@ -1,0 +1,133 @@
+import os
+import tensorflow as tf
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import tensorflow as tf
+import cv2
+preprocess_paraments={}
+##########################要改的东西#######################################
+#tfrecords文件的路径
+train_record = '/home/mo/work/caps_face/ASL-Finger-Spelling-Recognition-master/asl_tf/asl_train_00000-of-00001.tfrecord'
+
+# 解码部分：填入解码键值和原图大小以便恢复
+example_name = {}
+example_name['image'] = 'image/encoded'  #主要是这个(原图)p
+example_name['label'] = 'image/class/label' #主要是这个(标签)
+origenal_size =[32,32,1] #要还原原先图片尺寸
+
+#预处理方式
+to_random_brightness = True
+to_random_contrast = True
+to_resize_images = False
+resize_size =[20,20]
+to_random_crop = True
+crop_size= [28, 28, 1]
+
+#多队列、多线程、batch读图部分
+num_threads = 8
+batch_size = 32
+shuffle_batch =False
+
+#######################  end  ############################################
+
+def ReadTFRecord(tfrecords,example_name):
+    record_queue = tf.train.string_input_producer([tfrecords],num_epochs=10)#只有一个文件，谈不上打乱顺序
+    # record_queue = tf.train.string_input_producer([tfrecords])
+        # shuffle=False, num_epochs=3) # shuffle=False，num_epochs为3，即每个文件复制成3份，再打乱顺序，否则按原顺序
+
+    reader = tf.TFRecordReader()
+    key, value = reader.read(record_queue)
+    features = tf.parse_single_example(value,
+            features={
+                # 取出key为img_raw和label的数据,尤其是int位数一定不能错!!!
+                example_name['image']: tf.FixedLenFeature([],tf.string),
+                example_name['label']: tf.FixedLenFeature([], tf.int64)
+            })
+
+    img = tf.decode_raw(features[example_name['image']], tf.uint8)
+    # 注意定义的为int多少位就转换成多少位,否则容易出错!!
+
+    if len(origenal_size) == 2:
+        w, h = origenal_size[0],origenal_size[1]
+    else:
+        w, h, c = origenal_size[0],origenal_size[1],origenal_size[2]
+    img = tf.reshape(img, [w, h, c])
+    # img = tf.cast(img, tf.float32)  #不清楚为何加了这个图片变成黑白二值图，模糊不清
+
+    label = tf.cast(features[example_name['label']], tf.int64)
+    label = tf.cast(label, tf.int32)
+
+    return img, label
+
+def preprocess_data(is_train,image, label):
+    if is_train:
+
+        if to_random_brightness:
+            image = tf.image.random_brightness(image, max_delta=32. / 255.)
+        if to_random_contrast:
+            image = tf.image.random_contrast(image, lower=0.5, upper=1.5)
+        if to_resize_images:
+            # 只有method = 1没有被破坏最严重
+            image = tf.image.resize_images(image, resize_size,method=1)
+        if to_random_crop:
+            image = tf.random_crop(image, crop_size)
+
+
+    else:
+        if to_resize_images:
+            image = tf.image.resize_images(image, [28, 28])
+        if to_random_crop:
+            image = tf.random_crop(image, crop_size)
+
+    return image, label
+
+def feed_data_method(image,label):
+    if shuffle_batch:
+        images, labels = tf.train.shuffle_batch(
+            [image, label],
+            batch_size=batch_size,
+            num_threads=num_threads,
+            capacity=batch_size*64,
+            min_after_dequeue=batch_size*32,
+            allow_smaller_final_batch=False)
+    else:
+        images, labels = tf.train.batch(
+            [image, label],
+            batch_size=batch_size,
+            num_threads=num_threads,
+            capacity=batch_size*64,
+            allow_smaller_final_batch=False)
+    return images, labels
+
+def create_inputs_xxx(is_train: bool):
+    image, label = ReadTFRecord(train_record,example_name) #恢复原始数据
+    image, label = preprocess_data(is_train,image, label)  #预处理方式
+    images,labels =feed_data_method(image, label)          #喂图方式
+    return images,labels
+
+if  __name__== '__main__':
+    images, labels = create_inputs_xxx(is_train = True)
+
+    #观察自己设置的参数是否符合心意，合适的话在别的项目中直接调用 create_inputs_xxx() 函数即可喂数据
+    with tf.Session() as sess:
+        tf.global_variables_initializer().run()
+        tf.local_variables_initializer().run()
+        coord = tf.train.Coordinator()
+        threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+
+        # 输出100个batch观察
+        batch_size_n = 5  #观察batch_size的第n张图片
+        for i in range(100):
+            x, y = sess.run([images, labels])
+            title = 'label:{}'.format(y[batch_size_n])
+            print('image:',x.shape, 'label:', y.shape)
+            cv2.namedWindow(title, 0)
+            cv2.startWindowThread()
+            cv2.imshow(title, x[batch_size_n])
+            cv2.waitKey(2000)
+            cv2.destroyAllWindows()
+
+        coord.request_stop()
+        coord.join(threads)
