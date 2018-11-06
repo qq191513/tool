@@ -13,13 +13,31 @@ reshape_size =(32,32,1)
 ###########################################################################
 
 def ReadTFRecord(tfrecords,example_name):
-    # 可以把多个tfrecords排成一个queue,这样可以方便的使用多个tfrecords文件
-    record_queue = tf.train.string_input_producer([tfrecords])
-    # 读取TFRecords器
+    # [tfrecords]为文件列表
+    record_queue = tf.train.string_input_producer([tfrecords],
+        shuffle=False, num_epochs=5)
+    # eg :  tf.train.string_input_producer(['a.txt','b.txt'])
+    # 如果仅有一个文件名，其实就没必要使用此函数了，
+    # shuffle = False意味着让文件名洗乱，num_epochs=5让每个文件被使用5次
+    # 返回：文件队列queue
+    # 后面配合tf.TFRecordReader()函数使用
+
+    # 区别：输入队列tf.train.slice_input_producer
+    # 功能：分割和读取输入的数据集,传入图片路径，函数返回张量队列queue
+    # 使用前需要将features和labels包装成tensorflow的tensor对象
+    # imgpath=tf.convert_to_tensor(imgpath)），其中input_data为'*.jpg'、'*.bmp'等路径的图片
+    # tf.train.slice_input_producer([imgpath, label_tensor], num_epochs, shuffle, capacity)
+    # 后面配合函数tf.read_file和tf.train.batch使用
+    # 如：
+    # reader = tf.read_file(queues[0][0])
+    # image = tf.image.decode_jpeg(reader)
+    # label = queues[0][1]
+    # image_batch, label_batch = tf.train.batch([image, label], batch_size=100, capacity=100, num_threads=1)
+
+
+
+
     reader = tf.TFRecordReader()
-    # 一个数据一个数据的读返回key-value值,都保存在serialized_ex中
-    # 注意: 这里面keys是序列化的副产物,命名为tfrecords+random(),表示唯一的ID,没有作用,可以设置为_
-    #keys, serialized_ex = reader.read(record_queue)
     _, serialized_ex = reader.read(record_queue)
     # 直接解析出features数据,并且使用固定特征长度,及每个Example中一定会存在一个image和一个label
     # 并不是输入的图片大小不同就使用VarLenFeature.
@@ -44,7 +62,13 @@ else:
 # with tf.Session() as sess:  # 开始一个会话
 sess = tf.Session()
 coord = tf.train.Coordinator()
+
+# 使用tf.train.start_queue_runners之后，
+# 才会启动填充队列的线程，这时系统就不再“停滞”。
+# 此后计算单元就可以拿到数据并进行计算，
+# 整个程序也就跑起来了，这就是函数tf.train.start_queue_runners的用处。
 threads = tf.train.start_queue_runners(sess=sess, coord=coord)
+
 # 输出100个样本
 for i in range(100):
     image,label = sess.run([imgs,labels])
