@@ -1,21 +1,17 @@
-import os
-import tensorflow as tf
 import numpy as np
-
 import matplotlib.pyplot as plt
-
 import tensorflow as tf
 import cv2
 import time
 preprocess_paraments={}
+example_name = {}
 
 ##########################要改的东西#######################################
 #tfrecords文件的路径
-train_record = ['/home/mo/work/caps_face/ASL-Finger-Spelling-Recognition-master/asl_tf/asl_train_00000-of-00001.tfrecord',
-                '/home/mo/work/caps_face/ASL-Finger-Spelling-Recognition-master/asl_tf/asl_validation_00000-of-00001.tfrecord']
+train_record = ['asl_tf/asl_train_00000-of-00001.tfrecord']
 
 # 解码部分：填入解码键值和原图大小以便恢复
-example_name = {}
+
 example_name['image'] = 'image/encoded'  #主要是这个(原图)p
 example_name['label'] = 'image/class/label' #主要是这个(标签)
 origenal_size =[32,32,1] #要还原原先图片尺寸
@@ -29,9 +25,12 @@ to_random_crop = True
 crop_size= [28, 28, 1]
 
 #多队列、多线程、batch读图部分
-num_threads = 8
+num_threads = 32
 batch_size = 32
 shuffle_batch =True
+#训练多少轮，string_input_producer的num_epochs就写多少，
+# 否则会爆出OutOfRangeError的错误（意思是消费量高于产出量）
+num_epochs = 50  
 
 #显示方式
 cv2_show = False  # 用opencv显示或plt显示
@@ -39,10 +38,10 @@ cv2_show = False  # 用opencv显示或plt显示
 
 def ReadTFRecord(tfrecords,example_name):
     if len(tfrecords) == 1:
-        record_queue = tf.train.string_input_producer(tfrecords,num_epochs=10)#只有一个文件，谈不上打乱顺序
+        record_queue = tf.train.string_input_producer(tfrecords,num_epochs=num_epochs+1)#只有一个文件，谈不上打乱顺序
     else:
         # shuffle=False，num_epochs为3，即每个文件复制成3份，再打乱顺序，否则按原顺序
-        record_queue = tf.train.string_input_producer(tfrecords,shuffle=True, num_epochs=3)
+        record_queue = tf.train.string_input_producer(tfrecords,shuffle=True, num_epochs=num_epochs+1)
 
     reader = tf.TFRecordReader()
     key, value = reader.read(record_queue)
@@ -62,7 +61,7 @@ def ReadTFRecord(tfrecords,example_name):
         w, h, c = origenal_size[0],origenal_size[1],origenal_size[2]
     img = tf.reshape(img, [w, h, c])
 
-    # 不清楚为何加了这个tf.cast会让cv2显示不正常，图片变成黑白二值图，模糊不清
+    # 不清楚为何加了这个tf.cast会让cv2.imshow显示不正常，图片变成黑白二值图，模糊不清
     img = tf.cast(img, tf.float32)
 
     label = tf.cast(features[example_name['label']], tf.int64)
@@ -121,14 +120,14 @@ def plt_imshow_data(data):
     plt.show()
     time.sleep(2)
 
-def create_inputs_xxx(train_record, is_train):
+def create_inputs_xxx(is_train):
     image, label = ReadTFRecord(train_record,example_name) #恢复原始数据
     image, label = preprocess_data(is_train,image, label)  #预处理方式
     images,labels =feed_data_method(image, label)          #喂图方式
     return images,labels
 
 if  __name__== '__main__':
-    images, labels = create_inputs_xxx(train_record,is_train = True)
+    images, labels = create_inputs_xxx(is_train = True)
 
     #观察自己设置的参数是否符合心意，合适的话在别的项目中直接调用 create_inputs_xxx() 函数即可喂数据
     with tf.Session() as sess:
