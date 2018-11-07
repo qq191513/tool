@@ -6,10 +6,13 @@ import matplotlib.pyplot as plt
 
 import tensorflow as tf
 import cv2
+import time
 preprocess_paraments={}
+
 ##########################要改的东西#######################################
 #tfrecords文件的路径
-train_record = '/home/mo/work/caps_face/ASL-Finger-Spelling-Recognition-master/asl_tf/asl_train_00000-of-00001.tfrecord'
+train_record = ['/home/mo/work/caps_face/ASL-Finger-Spelling-Recognition-master/asl_tf/asl_train_00000-of-00001.tfrecord',
+                '/home/mo/work/caps_face/ASL-Finger-Spelling-Recognition-master/asl_tf/asl_validation_00000-of-00001.tfrecord']
 
 # 解码部分：填入解码键值和原图大小以便恢复
 example_name = {}
@@ -28,14 +31,18 @@ crop_size= [28, 28, 1]
 #多队列、多线程、batch读图部分
 num_threads = 8
 batch_size = 32
-shuffle_batch =False
+shuffle_batch =True
 
+#显示方式
+cv2_show = False  # 用opencv显示或plt显示
 #######################  end  ############################################
 
 def ReadTFRecord(tfrecords,example_name):
-    record_queue = tf.train.string_input_producer([tfrecords],num_epochs=10)#只有一个文件，谈不上打乱顺序
-    # record_queue = tf.train.string_input_producer([tfrecords])
-        # shuffle=False, num_epochs=3) # shuffle=False，num_epochs为3，即每个文件复制成3份，再打乱顺序，否则按原顺序
+    if len(tfrecords) == 1:
+        record_queue = tf.train.string_input_producer(tfrecords,num_epochs=10)#只有一个文件，谈不上打乱顺序
+    else:
+        # shuffle=False，num_epochs为3，即每个文件复制成3份，再打乱顺序，否则按原顺序
+        record_queue = tf.train.string_input_producer(tfrecords,shuffle=True, num_epochs=3)
 
     reader = tf.TFRecordReader()
     key, value = reader.read(record_queue)
@@ -54,7 +61,9 @@ def ReadTFRecord(tfrecords,example_name):
     else:
         w, h, c = origenal_size[0],origenal_size[1],origenal_size[2]
     img = tf.reshape(img, [w, h, c])
-    # img = tf.cast(img, tf.float32)  #不清楚为何加了这个图片变成黑白二值图，模糊不清
+
+    # 不清楚为何加了这个tf.cast会让cv2显示不正常，图片变成黑白二值图，模糊不清
+    img = tf.cast(img, tf.float32)
 
     label = tf.cast(features[example_name['label']], tf.int64)
     label = tf.cast(label, tf.int32)
@@ -101,14 +110,25 @@ def feed_data_method(image,label):
             allow_smaller_final_batch=False)
     return images, labels
 
-def create_inputs_xxx(is_train: bool):
+def plt_imshow_data(data):
+    #调成标准格式和标准维度，免得爆BUG
+    data = np.asarray(data)
+
+    if data.ndim == 3:
+        if data.shape[2] == 1:
+            data = data[:, :, 0]
+    plt.imshow(data)
+    plt.show()
+    time.sleep(2)
+
+def create_inputs_xxx(train_record, is_train):
     image, label = ReadTFRecord(train_record,example_name) #恢复原始数据
     image, label = preprocess_data(is_train,image, label)  #预处理方式
     images,labels =feed_data_method(image, label)          #喂图方式
     return images,labels
 
 if  __name__== '__main__':
-    images, labels = create_inputs_xxx(is_train = True)
+    images, labels = create_inputs_xxx(train_record,is_train = True)
 
     #观察自己设置的参数是否符合心意，合适的话在别的项目中直接调用 create_inputs_xxx() 函数即可喂数据
     with tf.Session() as sess:
@@ -119,15 +139,24 @@ if  __name__== '__main__':
 
         # 输出100个batch观察
         batch_size_n = 5  #观察batch_size的第n张图片
-        for i in range(100):
-            x, y = sess.run([images, labels])
-            title = 'label:{}'.format(y[batch_size_n])
-            print('image:',x.shape, 'label:', y.shape)
-            cv2.namedWindow(title, 0)
-            cv2.startWindowThread()
-            cv2.imshow(title, x[batch_size_n])
-            cv2.waitKey(2000)
-            cv2.destroyAllWindows()
+
+        if cv2_show:
+            for i in range(100):
+                x, y = sess.run([images, labels])
+                title = 'label:{}'.format(y[batch_size_n])
+                print('image:',x.shape, 'label:', y.shape)
+                cv2.namedWindow(title, 0)
+                cv2.startWindowThread()
+                cv2.imshow(title, x[batch_size_n])
+                cv2.waitKey(2000)
+                cv2.destroyAllWindows()
+        else:
+            for i in range(100):
+                x, y = sess.run([images, labels])
+                title = 'label:{}'.format(y[batch_size_n])
+                print('image:',x.shape, 'label:', y.shape)
+                plt_imshow_data(x[batch_size_n])
+
 
         coord.request_stop()
         coord.join(threads)
