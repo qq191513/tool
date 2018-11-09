@@ -7,11 +7,11 @@ preprocess_paraments={}
 example_name = {}
 
 ##########################要改的东西#######################################
-#tfrecords文件的路径
-train_record = ['asl_tf/asl_train_00000-of-00001.tfrecord']
+#tfrecords文件的路径(在本代码测试可填写相对路径，但给项目用喂要写完整路径，否则总是报错找不到文件)
+train_tfrecord = ['/home/mo/work/caps_face/Matrix-Capsules-EM-Tensorflow-master/data/asl_tf/asl_train_00000-of-00001.tfrecord']
+test_tfrecord = ['/home/mo/work/caps_face/Matrix-Capsules-EM-Tensorflow-master/data/asl_tf/asl_validation_00000-of-00001.tfrecord']
 
 # 解码部分：填入解码键值和原图大小以便恢复
-
 example_name['image'] = 'image/encoded'  #主要是这个(原图)p
 example_name['label'] = 'image/class/label' #主要是这个(标签)
 origenal_size =[32,32,1] #要还原原先图片尺寸
@@ -25,12 +25,12 @@ to_random_crop = True
 crop_size= [28, 28, 1]
 
 #多队列、多线程、batch读图部分
-num_threads = 32
+num_threads = 8
 batch_size = 32
 shuffle_batch =True
 #训练多少轮，string_input_producer的num_epochs就写多少，
 # 否则会爆出OutOfRangeError的错误（意思是消费量高于产出量）
-num_epochs = 50  
+num_epochs = 150
 
 #显示方式
 cv2_show = False  # 用opencv显示或plt显示
@@ -120,14 +120,18 @@ def plt_imshow_data(data):
     plt.show()
     time.sleep(2)
 
-def create_inputs_xxx(is_train):
-    image, label = ReadTFRecord(train_record,example_name) #恢复原始数据
+def create_inputs_asl(is_train):
+    if is_train:
+        data_tfrecord = train_tfrecord
+    else:
+        data_tfrecord = test_tfrecord
+    image, label = ReadTFRecord(data_tfrecord,example_name) #恢复原始数据
     image, label = preprocess_data(is_train,image, label)  #预处理方式
     images,labels =feed_data_method(image, label)          #喂图方式
     return images,labels
 
 if  __name__== '__main__':
-    images, labels = create_inputs_xxx(is_train = True)
+    images, labels = create_inputs_asl(is_train = True)
 
     #观察自己设置的参数是否符合心意，合适的话在别的项目中直接调用 create_inputs_xxx() 函数即可喂数据
     with tf.Session() as sess:
