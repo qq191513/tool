@@ -38,7 +38,7 @@ def get_interval(data=None,divide_number=None):
     divide_interval.append((i*batch_number,total_number))  #若凑不成整数，最后一批特殊数量
     return divide_interval
 
-# next_batch = True
+
 def compress_data_value(ori_data=None,divide_interval=None):
     new_data = []
     for start,end in divide_interval:   #取区间范围
