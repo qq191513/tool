@@ -8,7 +8,7 @@ save_name = 'capsnet_v1.txt'
 divide_number = 100  #数据压缩成多少个
 new_axis_name ='x_axis' #根据数据长度生成一个统一的x轴画图用,不需要则填None
 int_Value = 'Step'  #想转换成整数的数据(列)，用于做横坐标，不需要则填None
-del_col = ['Wall time'] #不需要的数据(列),不需要则填None
+del_col = ['Wall time'] #想要删除的数据(列),不需要则填None
 save_csv_style = False #到底保存成csv格式（表格）还是txt格式（字典格式）
 ####################   end       ###########################
 
