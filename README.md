@@ -48,3 +48,5 @@ convert_jpg_to_tfrecord.py 图片转成tfrecord文件（双层文件夹）,保�
 read_tf_and_show_pics.py 简易解码tfrecord文件并用cv2显示 2018/11/5
 
 use_xxx_tfrecord.py 给项目喂tfrecord数据  2018/11/6
+
+read_csv_and_rearrange_data 读csv数据压缩处理  2018/11/13
