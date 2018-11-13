@@ -83,7 +83,7 @@ if __name__ =='__main__':
     x_re_dict['global_step_list']=r'global_step: ([\d]+)'
     x_datas_dict = get_parameters_list(path = file_path ,re_dict= x_re_dict)
 
-    #画图显示legend的名字
+    #画图显示legend的名字 (下面的写的键值要上面的保持一致)
     y_datas_legend_dict =OrderedDict()
     y_datas_legend_dict['net1_list']="net1"
     y_datas_legend_dict['net2_list']="net2"

@@ -84,7 +84,7 @@ if __name__ =='__main__':
     y_re_dict_2['net_N1_list'] = r'net1: ([\d\.]+)'
     y_datas_dict_2 = get_parameters_list(path = file_path_1 ,re_dict= y_re_dict_2)
 
-    #两个顺序字典合并
+    #两个顺序字典合并(合并的键值不能一样)
     y_datas_dict = OrderedDict()
     y_datas_dict.update(y_datas_dict_1)
     y_datas_dict.update(y_datas_dict_2)
@@ -95,7 +95,7 @@ if __name__ =='__main__':
     x_re_dict['global_step_list']=r'global_step: ([\d]+)'
     x_datas_dict = get_parameters_list(path = file_path ,re_dict= x_re_dict)
 
-    #画图显示legend的名字
+    #画图显示legend的名字 (下面的写的键值要上面的保持一致)
     y_datas_legend_dict =OrderedDict()
     y_datas_legend_dict['net1_list']="net_N3_net1"
     y_datas_legend_dict['net2_list']="net_N3_net2"
