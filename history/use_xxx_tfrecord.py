@@ -8,13 +8,16 @@ preprocess_paraments={}
 example_name = {}
 
 ##########################要改的东西#######################################
-#tfrecords文件的路径
-tfrecord_path = '/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/'
+#tfrecords文件的路径(在本代码测试可填写相对路径，但给项目用喂要写完整路径，否则总是报错找不到文件)
+train_tfrecord = ['/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/italy_train_00000-of-00003.tfrecord',
+                  '/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/italy_train_00001-of-00003.tfrecord',
+                  '/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/italy_train_00002-of-00003.tfrecord',
+                  ]
+test_tfrecord = ['/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/italy_validation_00000-of-00003.tfrecord',
+                 '/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/italy_validation_00001-of-00003.tfrecord',
+                 '/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/italy_validation_00002-of-00003.tfrecord']
 
-#根据关键字搜索tfrecord_path目录下的所有相关文件
-train_keywords = 'train'
-test_keywords = 'validation'
-labels_txt_keywords = 'labels.txt'
+labels_txt = ['/home/mo/work/caps_face/make_italy_tfrecord/italy_tf/labels.txt']
 
 # 解码部分：填入解码键值和原图大小以便恢复
 example_name['image'] = 'image/encoded'  #主要是这个(原图)p
@@ -124,24 +127,6 @@ def plt_imshow_data(data):
     plt.imshow(data)
     plt.show()
     time.sleep(2)
-
-def get_files_list(path):
-    # work：获取所有文件的完整路径
-    files_list = []
-    for parent,dirnames,filenames in os.walk(path):
-        for filename in filenames:
-            files_list.append(os.path.join(parent,filename))
-    return files_list
-
-#根据关键字筛选父目录下需求的文件，按列表返回全部完整路径
-def search_keyword_files(path,keyword):
-    keyword_files_list = []
-    files_list = get_files_list(path)
-    for file in files_list:
-        if keyword in file:
-            keyword_files_list.append(file)
-    return keyword_files_list
-
 def read_label_txt_to_dict(labels_txt =None):
     if os.path.exists(labels_txt):
         labels_maps = {}
@@ -158,9 +143,9 @@ def read_label_txt_to_dict(labels_txt =None):
 
 def create_inputs_italy(is_train):
     if is_train:
-        data_tfrecord = search_keyword_files(tfrecord_path,train_keywords)
+        data_tfrecord = train_tfrecord
     else:
-        data_tfrecord = search_keyword_files(tfrecord_path,test_keywords)
+        data_tfrecord = test_tfrecord
     image, label = ReadTFRecord(data_tfrecord,example_name)          #恢复原始数据
     image, label = preprocess_data(is_train,image, label)            #预处理方式
     images,labels = feed_data_method(image, label)                   #喂图方式
@@ -168,8 +153,7 @@ def create_inputs_italy(is_train):
     return images,labels
 
 if  __name__== '__main__':
-    images, labels = create_inputs_italy(is_train = True)
-    labels_txt = search_keyword_files(tfrecord_path, labels_txt_keywords)
+    images, labels = create_inputs_italy(is_train = False)
     labels_maps = read_label_txt_to_dict(labels_txt=labels_txt[0])   #标签映射
     #观察自己设置的参数是否符合心意，合适的话在别的项目中直接调用 create_inputs_xxx() 函数即可喂数据
     with tf.Session() as sess:
