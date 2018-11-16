@@ -4,21 +4,6 @@ import re
 import matplotlib.pyplot as plt
 from collections import OrderedDict
 
-# str2float方法堆
-from functools import reduce
-def str2float(s):
-  return reduce(lambda x,y:x+int2dec(y),map(str2int,s.split('.')))
-def char2num(s):
-  return{'0':0,'1':1,'2':2,'3':3,'4':4,'5':5,'6':6,'7':7,'8':8,'9':9}[s]
-def str2int(s):
-  return reduce(lambda x,y:x*10+y,map(char2num,s))
-def intLen(i):
-    return len('%d' % i)
-def int2dec(i):
-  return i/(10** intLen(i))
-def str2float(s):
-    return reduce(lambda x,y: x+int2dec(y),map(str2int,s.split('.')))
-
 def get_parameters_list(path,re_dict={}):
 	data_dict =OrderedDict()
 	for key in re_dict.keys():
@@ -28,7 +13,7 @@ def get_parameters_list(path,re_dict={}):
 				pattern = re.compile(re_dict[key])
 				res = pattern.findall(line)
 				if res:
-					number_list.append(str2float(res[0]))
+					number_list.append(float(res[0]))
 		data_dict[key] =number_list
 	return data_dict
 
