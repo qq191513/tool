@@ -155,12 +155,17 @@ def read_label_txt_to_dict(labels_txt =None):
                 labels_maps[line_split[0]] = line_split[1]
         return labels_maps
     return None
+def show_loaded(data_tfrecord=None):
+    print('load tfrecord:')
+    for each in data_tfrecord:
+        print(each)
 
 def create_inputs_italy(is_train):
     if is_train:
         data_tfrecord = search_keyword_files(tfrecord_path,train_keywords)
     else:
         data_tfrecord = search_keyword_files(tfrecord_path,test_keywords)
+    show_loaded(data_tfrecord)
     image, label = ReadTFRecord(data_tfrecord,example_name)          #恢复原始数据
     image, label = preprocess_data(is_train,image, label)            #预处理方式
     images,labels = feed_data_method(image, label)                   #喂图方式
