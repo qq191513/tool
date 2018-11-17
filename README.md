@@ -50,3 +50,5 @@ read_tf_and_show_pics.py 简易解码tfrecord文件并用cv2显示 2018/11/5
 use_xxx_tfrecord.py 给项目喂tfrecord数据  2018/11/6
 
 read_csv_and_rearrange_data 读csv数据压缩处理  2018/11/13
+
+Model_evaluation_black_box.py 模型观察 2018/11/17
