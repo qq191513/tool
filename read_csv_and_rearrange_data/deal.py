@@ -3,15 +3,14 @@
 import csv
 import numpy as np
 ####################   改这里  #############################
-read_name = 'capsnet_em_v1-train_acc.csv'
-save_name = 'capsnet_v1.txt'
-divide_number = 100  #数据压缩成多少个
+read_name = 'em_italy-train_acc.csv'
+save_name = 'em_italy-train_acc_150.txt'
+divide_number = 150  #数据压缩成多少个
 new_axis_name ='x_axis' #根据数据长度生成一个统一的x轴画图用,不需要则填None
 int_Value = 'Step'  #想转换成整数的数据(列)，用于做横坐标，不需要则填None
-del_col = ['Wall time'] #想要删除的数据(列),不需要则填None
+del_col = ['Wall time'] #不需要的数据(列),不需要则填None
 save_csv_style = False #到底保存成csv格式（表格）还是txt格式（字典格式）
 ####################   end       ###########################
-
 
 def read_csv(filename =None):
     with open(filename) as f:
@@ -38,9 +37,9 @@ def get_interval(data=None,divide_number=None):
     divide_interval.append((i*batch_number,total_number))  #若凑不成整数，最后一批特殊数量
     return divide_interval
 
-
-def compress_data_value(ori_data=None,divide_interval=None):
+def compress_data_value(ori_data=None,divide_interval=None,is_add_increasing_number_as_x_axis=None):
     new_data = []
+    new_axis_number = 0
     for start,end in divide_interval:   #取区间范围
         sum = {} #每个区间累加前清空
         for i in range(start,end):
@@ -55,7 +54,9 @@ def compress_data_value(ori_data=None,divide_interval=None):
             if int_Value == key:
                 sum[key] = int(sum[key])
         if new_axis_name is not None:#添加新轴
-            sum[new_axis_name]=end
+            sum[new_axis_name]=new_axis_number
+            new_axis_number +=1
+
         new_data.append(sum)  #放进新数组
     return new_data
 
@@ -92,6 +93,7 @@ def save_txt(save_file = None,save_data=None):
 ori_data = read_csv(read_name)
 divide_interval = get_interval(data=ori_data, divide_number=divide_number)
 new_data = compress_data_value(ori_data=ori_data,divide_interval=divide_interval)
+
 
 print('#############################################################################################################################')
 print('#############################################################################################################################')
