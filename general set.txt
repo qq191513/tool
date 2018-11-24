@@ -1,1 +1,23 @@
+（1）
 .svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc;*ckpt*;*.pb;*.pbtxt;events.out*;*.tfrecord
+
+（2）
+winscp上传文件没有权限解决方法
+step1：cat /etc/ssh/sshd_config  | grep sftp
+一般返回这句话 Subsystem sftp usr/lib/openssh/sftp-server
+step2：vim /etc/sudoers
+step3：mo  ALL=NOPASSWD:/usr/lib/openssh/sftp-server
+step4：注释掉#Defaults    requiretty
+
+
+
+
+
+
+
+
+
+
+
+
+
