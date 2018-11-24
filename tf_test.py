@@ -53,14 +53,14 @@ train_step = tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)
 
 # 1、使用allow_growth option，刚一开始分配少量的GPU容量，然后按需慢慢的增加，由于不会释放内存，所以会导致碎片
 # 2、visible_device_list指定使用的GPU设备号；
-# 3、allow_soft_placement如果指定的设备不存在，允许TF自动分配设备
+# 3、allow_soft_placement如果指定的设备不存在，允许TF自动分配设备（这个设置必须有，否则无论如何都会报cudnn不匹配的错误）
 # 4、per_process_gpu_memory_fraction  指定每个可用GPU上的显存分配比
 session_config = tf.ConfigProto(
             device_count={'GPU': 0},
             gpu_options={'allow_growth': 1,
                 # 'per_process_gpu_memory_fraction': 0.1,
                 'visible_device_list': '0'},
-                allow_soft_placement=True)
+                allow_soft_placement=True)  ##这个设置必须有，否则无论如何都会报cudnn不匹配的错误,BUG十分隐蔽，真是智障
 sess = tf.Session(config=session_config)
 sess.run(tf.global_variables_initializer())
 correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(pred, 1))

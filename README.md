@@ -35,7 +35,7 @@ drawing_analyzer 用matplotlib画分析图 2018/08/14
 
 py_to_txt.py  全项目py转txt格式（单层或多层文件夹）,保存到新文件夹 2018/09/22
 
-tf_test.py 测试环境 2018/10/07
+tf_test.py 测试tensorflow环境 2018/10/07
 
 general command.txt 常用命令 2018/10/14
 
@@ -52,3 +52,5 @@ use_xxx_tfrecord.py 给项目喂tfrecord数据  2018/11/6
 read_csv_and_rearrange_data 读csv数据压缩处理  2018/11/13
 
 Model_evaluation_black_box.py 模型观察 2018/11/17
+
+keras_test_cifar10_demo.py 测试keras环境 2018/11/24
