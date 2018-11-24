@@ -8,6 +8,7 @@ step1：cat /etc/ssh/sshd_config  | grep sftp
 step2：vim /etc/sudoers
 step3：mo  ALL=NOPASSWD:/usr/lib/openssh/sftp-server
 step4：注释掉#Defaults    requiretty
+step5：有时候是文件本身不可以放进文件，要chmod 777 文件夹
 
 
 
