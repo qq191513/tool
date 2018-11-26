@@ -30,7 +30,7 @@ def curve_smooth(data_list, batch_size=100):
 	return new_data_list, idx_list
 
 def plot_curvev_v2(x,y_datas_dict,y_datas_legend_dict = None,setting_dict={}):
-    colors=['b','r','y','k','c','m','g',]
+    colors=['r','k','y','c','m','g','b']
     line_styles= ['^','+','x',':','s','*','o','D','.']
     # plt.switch_backend('agg')
     plt.title(setting_dict['title'])
