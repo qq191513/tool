@@ -4,6 +4,11 @@ import os,shutil
 import platform
 from sys import version_info
 
+#################### 改这里  ############################################
+path = 'Retina-Unet-master'
+#################### end  ############################################
+
+
 file_list = []
 sysstr = platform.system()
 global copy_index
@@ -78,7 +83,7 @@ def traverse(f, old_suffix=None, new_suffix=None,head_show = None):
 
 
 #全部转换并返回转换的列表
-path = 'Matrix-Capsules-EM'
+
 file_list = traverse(path,old_suffix='py',new_suffix='txt',head_show=True)
 
 
