@@ -53,7 +53,7 @@ session_config = tf.ConfigProto(
             gpu_options={'allow_growth': 1,
                 # 'per_process_gpu_memory_fraction': 0.1,
                 'visible_device_list': '0'},
-                allow_soft_placement=True) #这个设置必须有，否则无论如何都会报cudnn不匹配的错误,BUG十分隐蔽，真是智障
+                allow_soft_placement=True) #这个设置必须有，否则无论如何都会报cudnn不匹配的错误
 
 sess = tf.Session(config=session_config)
 KTF.set_session(sess)
