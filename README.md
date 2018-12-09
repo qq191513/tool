@@ -54,3 +54,5 @@ read_csv_and_rearrange_data 读csv数据压缩处理  2018/11/13
 Model_evaluation_black_box.py 模型观察 2018/11/17
 
 keras_test_cifar10_demo.py 测试keras环境 2018/11/24
+
+preprocess_data_tf.py 图像预处理（tf版本）2018/12/9
