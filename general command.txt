@@ -1,4 +1,4 @@
-1、更新清华源
+﻿1、更新清华源
 conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --set show_channel_urls yes
 cat ~/.condarc
@@ -28,7 +28,20 @@ window = QtWidgets.QWidget();
 window.show()
 sys.exit(app.exec_())
 
-
+5、安装theano: 
+（1）pip install theano
+（2）vim ~/.keras/keras.json
+改成：
+"backend": "theano"
+（3）pygpu==0.7.5与theano==1.0.0 对应
+conda install -c conda-forge pygpu
+（4）
+vim ~/.theanorc 
+插入：
+[global]
+model=FAST_RUN
+device=cuda0
+floatX=float32
 
 
 
