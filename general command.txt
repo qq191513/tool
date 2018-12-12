@@ -42,6 +42,12 @@ vim ~/.theanorc
 model=FAST_RUN
 device=cuda0
 floatX=float32
+[cuda]
+root=/home/mo/tool/cuda-9.0_cudnn_7.1/bin
+[dnn]
+enabled = True
+include_path=/home/mo/tool/cuda-9.0_cudnn_7.1/include
+library_path=/home/mo/tool/cuda-9.0_cudnn_7.1/lib64
 
 
 
