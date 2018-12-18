@@ -16,7 +16,7 @@ conda可能会给你安装一个新的TensorFlow版本，所以需要使用pip�
 conda create -n keras_test python=3.5
 vim ~/.bashrc
 source activate keras_testy
-conda tensorflow-gpu==1.5
+conda install tensorflow-gpu==1.5
 pip install keras==2.2.2
 conda install pydot
 conda install graphviz
