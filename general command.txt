@@ -18,7 +18,12 @@ pip install opencv-contrib-python
 
 
 4、安装QT4 (但是远程qt实在太卡了，还不如在windows用用算了)
+（1）linux版本
 conda install -c anaconda pyqt=4.11.4
+（2）window版本
+手工下载地址：
+conda install pyqt=4.11
+
 
 5、安装QT5
 （1）安装designer
