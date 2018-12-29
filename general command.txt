@@ -15,7 +15,12 @@ conda install --channel https://conda.anaconda.org/menpo opencv3
 pip install opencv-python 
 pip install opencv-contrib-python
 
-4、安装QT5
+
+
+4、安装QT4
+conda install -c anaconda pyqt=4.11.4
+
+5、安装QT5
 （1）安装designer
 pip install PyQt5-tools
 （2）安装pyqt5
@@ -28,7 +33,7 @@ window = QtWidgets.QWidget();
 window.show()
 sys.exit(app.exec_())
 
-5、安装theano: 
+6、安装theano: 
 （1）pip install theano
 （2）conda install nose-parameterized
 （3）vim ~/.keras/keras.json
@@ -61,6 +66,8 @@ root=/home/mo/tool/cuda-9.0_cudnn_7.1/bin
 enabled = True
 include_path=/home/mo/tool/cuda-9.0_cudnn_7.1/include
 library_path=/home/mo/tool/cuda-9.0_cudnn_7.1/lib64
+
+
 
 
 
