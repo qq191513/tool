@@ -17,7 +17,7 @@ pip install opencv-contrib-python
 
 
 
-4、安装QT4
+4、安装QT4 (但是远程qt实在太卡了，还不如在windows用用算了)
 conda install -c anaconda pyqt=4.11.4
 
 5、安装QT5
