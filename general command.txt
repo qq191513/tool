@@ -9,9 +9,10 @@ conda install pytorch torchvision cuda90 -c pytorch      #cuda90版本
 conda install pytorch-cpu torchvision-cpu -c pytorch     #cpu版本
 
 3、安装opencv3
-（1）linux版本
+（1）linux版本（不建议这样）
 conda install --channel https://conda.anaconda.org/menpo opencv3
-（2）windows版本
+
+（2）linux或windows版本都可以，（建议这样）
 pip install opencv-python 
 pip install opencv-contrib-python
 
