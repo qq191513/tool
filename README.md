@@ -57,5 +57,8 @@ keras_test_cifar10_demo.py 测试keras环境 2018/11/24
 
 preprocess_data_tf.py 图像预处理（tf）2018/12/9
 
-json_to_dataset 实现labelme批量json_to_dataset方法 2018/12/30
-json_to_dataset_v1 实现labelme批量json_to_dataset方法,保存到兩個文件夾 2018/12/30
+json_to_dataset 取代原代码，实现labelme批量json_to_dataset方法 2018/12/30
+
+json_to_dataset_v1 取代原代码，实现labelme批量json_to_dataset方法,保存到兩個文件夾 2018/12/30
+
+plot_confusion_matrix.py 画混淆矩阵  2019/1/7
