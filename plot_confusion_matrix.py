@@ -7,7 +7,7 @@ import numpy as np
 
 def plot_confusion_matrix(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=None):
     # 创建图
-    plt.figure(figsize=(6, 6), dpi=120)
+    plt.figure(figsize=(4, 4), dpi=120)
     np.set_printoptions(precision=2)
     # 不归一化
     cm_normalized = cm
@@ -23,13 +23,15 @@ def plot_confusion_matrix(cm, title='Confusion Matrix',labels= None,cmap=None,sa
     for x_val, y_val in zip(x.flatten(), y.flatten()):
         c = cm_normalized[y_val][x_val]
         if c > 0.01:
-            plt.text(x_val, y_val, "%0.2f" % (c,), color='red', fontsize=42, va='center', ha='center')
+            plt.text(x_val, y_val, "%0.2f" % (c,), color='red', fontsize=25, va='center', ha='center')
     # offset the tick
     tick_marks = np.array(range(len(labels))) + 0.5
 
     # 获取当前子图Get Current Axes
-    plt.gca().set_xticks(tick_marks, minor=True)
-    plt.gca().set_yticks(tick_marks, minor=True)
+    # plt.gca().set_xticks(tick_marks, minor=True)
+    plt.gca().set_xticklabels(tick_marks, fontdict={'fontsize':15}, minor=False)
+    # plt.gca().set_yticks(tick_marks, minor=True)
+    plt.gca().set_yticklabels(tick_marks, fontdict={'fontsize':15}, minor=False)
     plt.gca().xaxis.set_ticks_position('none')
     plt.gca().yaxis.set_ticks_position('none')
     # 生成网格
@@ -51,9 +53,9 @@ def plot_confusion_matrix(cm, title='Confusion Matrix',labels= None,cmap=None,sa
     # 显示yticks
     plt.yticks(xlocations, labels)
     # 显示ylabel
-    plt.ylabel('True label',fontdict={'fontsize':30})
+    plt.ylabel('True label',fontdict={'fontsize':25})
     # 显示xlabel
-    plt.xlabel('Predicted label',fontdict={'fontsize':30})
+    plt.xlabel('Predict',fontdict={'fontsize':25})
     # 保存图
     plt.savefig(savefig, format='png')
     # 显示图
