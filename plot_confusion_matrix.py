@@ -1,4 +1,4 @@
-﻿#coding:utf-8
+#coding:utf-8
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
@@ -7,8 +7,8 @@ import numpy as np
 
 def plot_confusion(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=None,font_dict=None):
     # 创建图
-    plt.figure(figsize=(4, 4), dpi=1200)
-    np.set_printoptions(precision=2)
+    plt.figure(figsize=(8, 4), dpi=1500) #例如figsize=(5, 5)相当于生成一张500*500大小的图片， 调试的时候用低分辨dpi=150，应用的时候再用高分辨率1500
+    np.set_printoptions(precision=2)  #设置小数点保留精度
 
     # 按行归一化
     cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
@@ -23,7 +23,9 @@ def plot_confusion(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=N
     for x_val, y_val in zip(x.flatten(), y.flatten()):
         c = cm_normalized[y_val][x_val]
         if c > 0.01:
-            plt.text(x_val, y_val, "%0.2f" % (c,), color='red', fontsize=font_dict['rate_fontsize'], va='center', ha='center')
+            plt.text(x_val, y_val, "%0.2f" % (c,), color='black', fontsize=font_dict['rate_fontsize'], va='center', ha='center')
+        else:
+            plt.text(x_val, y_val, "%0.2f" % (0.00,), color='white', fontsize=font_dict['rate_fontsize'], va='center',ha='center')
     # offset the tick
     tick_marks = np.array(range(len(labels))) + 0.5
 
@@ -36,12 +38,12 @@ def plot_confusion(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=N
     plt.gca().yaxis.set_ticks_position('none')
     # 生成网格
     # plt.grid(True, which='minor', linestyle='-')
-    plt.grid(True, which='major', linestyle='-')
+    plt.grid(True, which='minor', linestyle='-')
     # 获取当前的图表（Get Current Figure）
     plt.gcf().subplots_adjust(bottom=0.15)
 
-    # 显示图
-    plt.imshow(cm, interpolation='nearest', cmap=cmap)
+    # 显示图 (aspect =0.5可以画成长方形，因为规模太大的话正方形根本看不清)
+    plt.imshow(cm, interpolation='nearest', cmap=cmap,aspect =0.45)
     # 标题
     # plt.title(title,fontdict={'fontsize':30})
     # 柱条
@@ -68,7 +70,8 @@ if __name__ == "__main__":
     y_pred = ["ant", "ant", "cat", "cat", "ant", "cat"]
     labels=["ant", "bird", "cat"]
     cm = confusion_matrix(y_true, y_pred)
-    cmap = plt.cm.binary
+    # cmap = plt.cm.binary
+    cmap = 'Accent_r'
     font_dict={
         'xlabel':25,'ylabel':25,
         'xticklabels':15,'yticklabels':15,
