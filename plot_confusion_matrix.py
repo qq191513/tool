@@ -35,7 +35,8 @@ def plot_confusion(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=N
     plt.gca().xaxis.set_ticks_position('top')  #将xaxis ticks设置在顶部
     plt.gca().yaxis.set_ticks_position('none')
     # 生成网格
-    plt.grid(True, which='minor', linestyle='-')
+    # plt.grid(True, which='minor', linestyle='-')
+    plt.grid(True, which='major', linestyle='-')
     # 获取当前的图表（Get Current Figure）
     plt.gcf().subplots_adjust(bottom=0.15)
 
