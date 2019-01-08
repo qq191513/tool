@@ -1,5 +1,5 @@
 def set_gpu():
-    # 1¡¢ÉèÖÃGPUÄ£Ê½
+    # 1ã€è®¾ç½®GPUæ¨¡å¼
     session_config = tf.ConfigProto(
         device_count={'GPU': 0},
         gpu_options={'allow_growth': 1,
@@ -9,7 +9,7 @@ def set_gpu():
     return  session_config
 
 def init_variables_and_start_thread(sess):
-    # 2¡¢È«¾Ö³õÊ¼»¯ºÍÆô¶¯Êı¾İÏß³Ì £¨Òª·ÅÔÚ³õÊ¼»¯ÍøÂçÖ®ºó£©
+    # 2ã€å…¨å±€åˆå§‹åŒ–å’Œå¯åŠ¨æ•°æ®çº¿ç¨‹ ï¼ˆè¦æ”¾åœ¨åˆå§‹åŒ–ç½‘ç»œä¹‹åï¼‰
     sess.run(tf.local_variables_initializer())
     sess.run(tf.global_variables_initializer())
     coord = tf.train.Coordinator()
@@ -17,10 +17,15 @@ def init_variables_and_start_thread(sess):
 
 
 def restore_model(sess,ckpt):
-    # 3¡¢»Ö¸´model£¬·ÅÔÚÉÏÃæµÄÈ«¾Ö³õÊ¼»¯ºÍÆô¶¯Êı¾İÏß³Ìº¯ÊıÖ®ºó
+    # 3ã€æ¢å¤modelï¼Œæ”¾åœ¨ä¸Šé¢çš„å…¨å±€åˆå§‹åŒ–å’Œå¯åŠ¨æ•°æ®çº¿ç¨‹å‡½æ•°ä¹‹å
     """Set Saver."""
     var_to_save = [v for v in tf.global_variables(
     ) if 'Adam' not in v.name]  # Don't save redundant Adam beta/gamma
     saver = tf.train.Saver(var_list=var_to_save, max_to_keep=5)
     mode_file = tf.train.latest_checkpoint(ckpt)
     saver.restore(sess, mode_file)
+
+def stop_threads(coord,threads):
+    # 4ã€ç¨‹åºç»ˆæ­¢ ï¼ˆè¯¥å¥è¦æ”¾åˆ°with graphå’Œwith sess åŒºåŸŸä¹‹å†…æ‰è¡Œï¼‰
+    coord.request_stop()
+    coord.join(threads)
