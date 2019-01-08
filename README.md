@@ -62,3 +62,5 @@ json_to_dataset 取代原代码，实现labelme批量json_to_dataset方法 2018/
 json_to_dataset_v1 取代原代码，实现labelme批量json_to_dataset方法,保存到兩個文件夾 2018/12/30
 
 plot_confusion_matrix.py 画混淆矩阵  2019/1/7
+
+config.py 常用配置函数 2019/1/8

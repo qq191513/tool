@@ -1,20 +1,20 @@
-#coding:utf-8
+﻿#coding:utf-8
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
 
 
 
-def plot_confusion_matrix(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=None):
+def plot_confusion(cm, title='Confusion Matrix',labels= None,cmap=None,savefig=None,font_dict=None):
     # 创建图
-    plt.figure(figsize=(4, 4), dpi=120)
+    plt.figure(figsize=(4, 4), dpi=1200)
     np.set_printoptions(precision=2)
-    # 不归一化
-    cm_normalized = cm
+
     # 按行归一化
     cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
     print(cm_normalized)
-
+    # # 不归一化
+    # cm_normalized = cm
     # 网格
     ind_array = np.arange(len(labels))
     x, y = np.meshgrid(ind_array, ind_array)
@@ -23,16 +23,16 @@ def plot_confusion_matrix(cm, title='Confusion Matrix',labels= None,cmap=None,sa
     for x_val, y_val in zip(x.flatten(), y.flatten()):
         c = cm_normalized[y_val][x_val]
         if c > 0.01:
-            plt.text(x_val, y_val, "%0.2f" % (c,), color='red', fontsize=25, va='center', ha='center')
+            plt.text(x_val, y_val, "%0.2f" % (c,), color='red', fontsize=font_dict['rate_fontsize'], va='center', ha='center')
     # offset the tick
     tick_marks = np.array(range(len(labels))) + 0.5
 
     # 获取当前子图Get Current Axes
     # plt.gca().set_xticks(tick_marks, minor=True)
-    plt.gca().set_xticklabels(tick_marks, fontdict={'fontsize':15}, minor=False)
+    plt.gca().set_xticklabels(tick_marks, fontdict={'fontsize':font_dict['yticklabels']}, minor=False)
     # plt.gca().set_yticks(tick_marks, minor=True)
-    plt.gca().set_yticklabels(tick_marks, fontdict={'fontsize':15}, minor=False)
-    plt.gca().xaxis.set_ticks_position('none')
+    plt.gca().set_yticklabels(tick_marks, fontdict={'fontsize':font_dict['yticklabels']}, minor=False)
+    plt.gca().xaxis.set_ticks_position('top')  #将xaxis ticks设置在顶部
     plt.gca().yaxis.set_ticks_position('none')
     # 生成网格
     plt.grid(True, which='minor', linestyle='-')
@@ -53,9 +53,9 @@ def plot_confusion_matrix(cm, title='Confusion Matrix',labels= None,cmap=None,sa
     # 显示yticks
     plt.yticks(xlocations, labels)
     # 显示ylabel
-    plt.ylabel('True label',fontdict={'fontsize':25})
+    plt.ylabel('True label',fontdict={'fontsize':font_dict['ylabel']})
     # 显示xlabel
-    plt.xlabel('Predict',fontdict={'fontsize':25})
+    plt.xlabel('Predict',fontdict={'fontsize':font_dict['xlabel']})
     # 保存图
     plt.savefig(savefig, format='png')
     # 显示图
@@ -67,9 +67,14 @@ if __name__ == "__main__":
     y_pred = ["ant", "ant", "cat", "cat", "ant", "cat"]
     labels=["ant", "bird", "cat"]
     cm = confusion_matrix(y_true, y_pred)
-    cmap =  'Oranges_r'
-    plot_confusion_matrix(cm, title='Normalized confusion matrix',
-                labels =labels ,cmap=cmap,savefig='confusion_matrix.png' )
+    cmap = plt.cm.binary
+    font_dict={
+        'xlabel':25,'ylabel':25,
+        'xticklabels':15,'yticklabels':15,
+        'rate_fontsize':25
+    }
+    plot_confusion(cm, title='Normalized confusion matrix',
+                labels =labels ,cmap=cmap,savefig='confusion_matrix.png',font_dict=font_dict)
 
 
 
