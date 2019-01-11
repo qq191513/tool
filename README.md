@@ -63,9 +63,5 @@ json_to_dataset_v1 取代原代码，实现labelme批量json_to_dataset方法,�
 
 plot_confusion_matrix.py 画混淆矩阵  2019/1/7
 
-config.py 常用配置函数 2019/1/8
-
 group_pics.py 把一堆图片拼接成一张 2019/1/9
-
-train_mnist.py 训练mnist，调bug用 2019/1/11
 
