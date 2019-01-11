@@ -67,3 +67,5 @@ config.py 常用配置函数 2019/1/8
 
 group_pics.py 把一堆图片拼接成一张 2019/1/9
 
+train_mnist.py 训练mnist，调bug用 2019/1/11
+
