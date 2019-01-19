@@ -11,9 +11,16 @@ step4：注释掉#Defaults    requiretty
 step5：有时候是文件本身不可以放进文件，要chmod 777 文件夹
 
 （3）
+方式一：
 Can't open display: localhost:  偶尔能显示，过会儿又不能显示。问题很难定位。
 在 ~/.ssh/config 中添加 ForwardX11Trusted yes
 关闭窗口重新激活
+方式二：
+cp /etc/ssh/ssh_config ~/.ssh/config
+然后打开以下选项：
+ForwardX11 yes
+GSSAPIAuthentication yes
+ForwardX11Trusted yes
 
 
 
