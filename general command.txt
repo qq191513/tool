@@ -8,7 +8,7 @@ conda install pytorch torchvision -c pytorch             #cuda80版本
 conda install pytorch torchvision cuda90 -c pytorch      #cuda90版本
 conda install pytorch-cpu torchvision-cpu -c pytorch     #cpu版本
 
-3、安装opencv3
+3、安装anaconda里面的opencv3
 （1）linux版本（不建议这样）
 conda install --channel https://conda.anaconda.org/menpo opencv3
 
@@ -16,9 +16,47 @@ conda install --channel https://conda.anaconda.org/menpo opencv3
 pip install opencv-python 
 pip install opencv-contrib-python
 
+4、非root安装系统里面的opencv3
+出现问题参考https://blog.csdn.net/qq_30163461/article/details/80441522
+cd ~/package/
+（1）下载和解压
+wget -O opencv.zip https://github.com/Itseez/opencv/archive/3.4.3.zip
+unzip opencv.zip
+wget -O opencv_contrib.zip https://github.com/Itseez/opencv_contrib/archive/3.4.3.zip
+unzip opencv_contrib.zip
 
+（2）建立和进入文件夹
+cd opencv-3.4.3/
+mkdir build && cd build
 
-4、安装QT4 (但是远程qt实在太卡了，还不如在windows用用算了)
+（3）设置安装路径
+cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/home/mo/tool/opencv-3.4.3 -D OPENCV_EXTRA_MODULES_PATH=/home/mo/package/opencv_contrib-3.4.3/modules ..
+
+注（1）或按照下面的注（2）方法
+如果无法下载ippicv_2017u3_lnx_intel64_general_20180518.tgz，手工下载到home/mo/package/
+进入~/package/opencv-3.4.3/3rdparty/ippicv 
+vim ippicv.cmake 
+第四十七行的"https://raw.githubusercontent.com/opencv/opencv_3rdparty/${IPPICV_COMMIT}/ippicv/"
+改成"file:///home/mo/package/"
+
+注（2）
+如果无法下载face_landmark_model.dat
+下载地址https://raw.githubusercontent.com/opencv/opencv_3rdparty/8afa57abc8229d611c4937165d20e2a2d9fc5a12/face_landmark_model.dat
+重命名成在opencv-3.4.3/.cache/data目录下的那个文件名，并将它覆盖掉
+（4）编译（-j8指的是8线程编译，快些）
+make -j8
+（5）安装输出
+make install
+（6）添加环境变量
+vim ~/.bashrc
+最好把opencv的路径放到cuda的路径后面
+#opencv3.4.3
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/home/mo/tool/opencv-3.4.3/lib/pkgconfig
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/mo/tool/opencv-3.4.3/lib
+（7）测试是否成功
+pkg-config --modversion opencv
+
+5、安装QT4 (但是远程qt实在太卡了，还不如在windows用用算了)
 （1）linux版本
 conda install -c anaconda pyqt=4.11.4
 （2）window版本
@@ -26,7 +64,7 @@ conda install -c anaconda pyqt=4.11.4
 conda install pyqt=4.11
 
 
-5、安装QT5
+6、安装QT5
 （1）安装designer
 pip install PyQt5-tools
 （2）安装pyqt5
@@ -39,7 +77,7 @@ window = QtWidgets.QWidget();
 window.show()
 sys.exit(app.exec_())
 
-6、安装theano: 
+7、安装theano: 
 （1）pip install theano
 （2）conda install nose-parameterized
 （3）vim ~/.keras/keras.json
@@ -72,6 +110,8 @@ root=/home/mo/tool/cuda-9.0_cudnn_7.1/bin
 enabled = True
 include_path=/home/mo/tool/cuda-9.0_cudnn_7.1/include
 library_path=/home/mo/tool/cuda-9.0_cudnn_7.1/lib64
+
+
 
 
 
