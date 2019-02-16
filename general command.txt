@@ -16,7 +16,8 @@ conda install --channel https://conda.anaconda.org/menpo opencv3
 pip install opencv-python 
 pip install opencv-contrib-python
 
-4、非root安装系统里面的opencv3
+4、非root安装系统里面的opencv3.4.3
+opencv3.1.0无法成功，这里安装opencv3.4.3
 出现问题参考https://blog.csdn.net/qq_30163461/article/details/80441522
 cd ~/package/
 （1）下载和解压
