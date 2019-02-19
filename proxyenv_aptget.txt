@@ -1,7 +1,7 @@
 #!/bin/sh
 export proxyserveraddr=xxx.xxx.xxx.xxx
 export proxyserverport=xxx
-# for apt-get
+# for apt-get 如果运行不了，一定要用notepad打开并在右下角点击Windows那里然后选择转化为Unix格式再保存
 cat <<-EOF| sudo tee /etc/apt/apt.conf
 Acquire::http::proxy "http://$proxyserveraddr:$proxyserverport/";
 Acquire::https::proxy "https://$proxyserveraddr:$proxyserverport/";

@@ -65,3 +65,6 @@ plot_confusion_matrix.py 画混淆矩阵  2019/1/7
 
 group_pics.py 把一堆图片拼接成一张 2019/1/9
 
+proxyenv_aptget.txt 打开apt-get代理 2019/2/19
+
+unproxyenv_aptget.txt 取消apt-get代理 2019/2/19
