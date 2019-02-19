@@ -1,0 +1,10 @@
+#!/bin/sh
+export proxyserveraddr=xxx.xxx.xxx.xxx
+export proxyserverport=xxx
+# for apt-get
+cat <<-EOF| sudo tee /etc/apt/apt.conf
+Acquire::http::proxy "http://$proxyserveraddr:$proxyserverport/";
+Acquire::https::proxy "https://$proxyserveraddr:$proxyserverport/";
+Acquire::ftp::proxy "ftp://$proxyserveraddr:$proxyserverport/";
+Acquire::socks::proxy "socks://$proxyserveraddr:$proxyserverport/";
+EOF
