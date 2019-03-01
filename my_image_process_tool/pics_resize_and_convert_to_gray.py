@@ -5,12 +5,15 @@ import cv2
 ##########################要改的东西#######################################
 path = r'asl_dataset'
 reshape_size =(32,32,1)
+resize_pic = True
+convert_to_gray = True
 ###########################################################################
 
 
 def create_new_route(file,reshape_size,resize_pic,convert_to_gray):
     # work:传入一个文件的完整路径，返回新的目标路径和无后缀文件名
-    file = file.split('/') #切开
+    sep = os.path.sep
+    file = file.split(sep) #切开
     first_name = file[0]
 
     if len(reshape_size) == 2:
@@ -26,10 +29,9 @@ def create_new_route(file,reshape_size,resize_pic,convert_to_gray):
     file_name = file[-1]  #取最后一个名字
     file_name = file_name.split('.')[0]  # 切开取第0个
     file.pop(-1)  # 删除
-    new_route = '/'.join(file) #重连
+    new_route = sep.join(file) #重连
     if not os.path.exists(new_route):
-        cmd = 'mkdir -p ' + new_route
-        os.system(cmd)
+        os.makedirs(new_route,exist_ok=True)
     return new_route,file_name
 
 def get_files_list(path):
@@ -62,4 +64,4 @@ def resize_pic_and_save(file,reshape_size= (32,32,1),resize_pic = True,convert_t
 files_list = get_files_list(path)
 #一个个resize图片和转成灰度图
 for file in files_list:
-    resize_pic_and_save(file,reshape_size= reshape_size,resize_pic = True,convert_to_gray = True)
+    resize_pic_and_save(file,reshape_size= reshape_size,resize_pic = resize_pic,convert_to_gray = convert_to_gray)
