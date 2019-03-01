@@ -3,10 +3,10 @@ import os
 import cv2
 
 ##########################要改的东西#######################################
-path = r'asl_dataset'
-reshape_size =(32,32,1)
+path = r'..\\my_video_new'
+reshape_size =(224,224,3)
 resize_pic = True
-convert_to_gray = True
+convert_to_gray = False
 ###########################################################################
 
 
@@ -14,7 +14,17 @@ def create_new_route(file,reshape_size,resize_pic,convert_to_gray):
     # work:传入一个文件的完整路径，返回新的目标路径和无后缀文件名
     sep = os.path.sep
     file = file.split(sep) #切开
-    first_name = file[0]
+    index = 0
+
+    # 循环，找出file的头名字，用来等下起个新的名字
+    while True:
+        first_name = file[index]
+        if '..' in first_name or first_name == '':
+            index += 1
+            continue
+        first_name = file.pop(index)  #弹出file的头名字，避免等下重复起名字
+        break
+
 
     if len(reshape_size) == 2:
         w, h = reshape_size
