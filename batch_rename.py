@@ -1,6 +1,13 @@
 import os
 import random
 
+####################################### 改这里 ##################################
+where = r'F:\Test\Py_test\py35_windows\output\my_video_new_224x224_new\json'
+new_name = 'fuck'
+new_postfix = '.json'
+choice_single_folder = True
+####################################### end ####################################
+
 def single_folder_rename(where,new_name,new_postfix):  #仅对单个文件夹里面的所有文件命名
     files =os.listdir(where)  #列出路径where下的每个文件夹
     for index,filename in enumerate(files):
@@ -27,9 +34,10 @@ def double_folders_rename(where, new_name, new_postfix):  #对双层文件夹里
         print('{index} dealing folder :{foldername}'.format(index = index,foldername =foldername))
         single_folder_rename(os.path.join(where,foldername), new_name, new_postfix)
 
+if __name__=='__main__':
 
-where = 'datasets/dataset1/validation/'
-new_name = 'validation'
-new_postfix = '.jpg'
-double_folders_rename(where,new_name,new_postfix)
+    if choice_single_folder:
+        single_folder_rename(where, new_name, new_postfix)
+    else:
+        double_folders_rename(where,new_name,new_postfix)
 
