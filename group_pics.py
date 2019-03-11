@@ -1,13 +1,14 @@
 from PIL import Image, ImageDraw
 import os
 import time
-####################################### 改这里 ##################################
-image_path = 'predict_tensor_feature_map/cap2_1'  # 图片集目录地址
+####################################### 改这里 ###################################################################
+image_path_1='3_2'  #让最终保存的图片名字为文件夹的名字
+image_path = os.path.join('F:/Test/Py_test/py35_windows/predict_tensor_feature_map/u_cap3_2', image_path_1 )# 图片集目录地址
 image_size = 256  # 将要把每张小图片resize成的大小
-image_row = 4  # 图片间隔，也就是合并成一张图后，一共有几行
-image_column = 4  # 图片间隔，也就是合并成一张图后，一共有几列
-image_save_path = 'predict_tensor_feature_map/cap2_1.jpg'  # 图片转换后的地址
-####################################### end ####################################
+image_row = 6  # 图片间隔，也就是合并成一张图后，一共有几行
+image_column = 8  # 图片间隔，也就是合并成一张图后，一共有几列
+image_save_path =os.path.join(image_path,'../',image_path_1+'.jpg')  # 图片转换后的图片
+####################################### end ######################################################################
 
 image_format = ['.jpg', '.JPG', '.png']  # 图片格式
 # 获取图片集地址下的所有图片名称
@@ -91,7 +92,7 @@ def image_concact(image_path):
 
     to_image.show()  #远程Image的显示像cv2一样要打开Xming才行
     to_image.save(image_save_path)  # 保存新图
-    time.sleep(10)
+    time.sleep(3)
 
 # 给左上角写标注
 # save_new_path = write_label_in_left()
