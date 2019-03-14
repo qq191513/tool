@@ -29,7 +29,7 @@ unproxyenv.txt 取消代理
 
 general set 一般设置
 
-bs4_csdn.py 爬虫(bs4)保存csdn文章
+bs4_csdn.py 爬虫(bs4)保存csdn文章   
 
 drawing_analyzer 用matplotlib画分析图 2018/08/14
 
@@ -63,8 +63,12 @@ json_to_dataset_v1 取代原代码，实现labelme批量json_to_dataset方法,�
 
 plot_confusion_matrix.py 画混淆矩阵  2019/1/7
 
-group_pics.py 把一堆图片拼接成一张 2019/1/9
+group_pics.py 把一堆图片拼接成一张 2019/1/9   aborted
 
 proxyenv_aptget.txt 打开apt-get代理 2019/2/19
 
 unproxyenv_aptget.txt 取消apt-get代理 2019/2/19
+
+group_pics_one_folder.py  把一个文件夹的所有图片合成一张 2019/3/14 
+
+group_pics_all_folders    批量合成：把多个文件夹依次对每个文件随机取image_column张图片合成各种的图 2019/3/14
