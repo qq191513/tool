@@ -72,3 +72,5 @@ unproxyenv_aptget.txt 取消apt-get代理 2019/2/19
 group_pics_one_folder.py  把一个文件夹的所有图片合成一张 2019/3/14 
 
 group_pics_all_folders    批量合成：把多个文件夹依次对每个文件随机取image_column张图片合成各种的图 2019/3/14
+
+kill_viruse.py 杀毒 2019/3/15
