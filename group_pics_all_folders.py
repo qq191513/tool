@@ -2,9 +2,8 @@ from PIL import Image, ImageDraw
 import os
 from random import shuffle
 ##### read me #####
-#step 1、取所有层生成的各个文件夹，依次对每个文件随机取image_column张图片
+#取所有层生成的各个文件夹，依次对每个文件随机取image_column张图片
 #合成image_row行image_column列的图片，输出到新目录mage_path+'_merge'中
-#step 2、将上一步新目录的图片再次合成大图
 ##### end #########
 
 ####################################### 改这里 ###################################################################
@@ -39,7 +38,6 @@ def get_folder_pic_list(image_total_path,folder_need_to_merge,shuffle_pic):
     folder_need_to_merge_1 = os.path.join(image_total_path,folder_need_to_merge)
     list_name = []
     listdir(path=folder_need_to_merge_1, list_name=list_name)
-
 
     for pic in list_name:
         for item in image_format:
@@ -154,12 +152,6 @@ for image_dir in image_dir_list:
     image_names_list = get_folder_pic_list(image_total_path,image_dir,shuffle_pic=True)
     #拼接图片
     image_concact(image_dir=image_dir,image_names=image_names_list,image_save_path=image_save_path)
-
-# step 2
-
-image_names_list = get_folder_pic_list(image_save_path,image_dir,shuffle_pic=True)
-image_concact(image_dir=image_dir,image_names=image_names_list,image_save_path=image_save_path_big_image)
-
 
 
 

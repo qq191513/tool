@@ -1,6 +1,6 @@
 from PIL import Image, ImageDraw
 import os
-
+import re
 ####################################### 改这里 ###################################################################
 image_path = os.path.join('F:/Test/Py_test/py35_windows/predict_tensor_feature_map_merge' )# 图片集目录地址
 image_size_h = 512    #将要把每张小图片resize成的大小
@@ -25,7 +25,7 @@ image_format = ['.jpg', '.JPG', '.png']  # 图片格式
 image_names = [name for name in os.listdir(image_path) for item in image_format if
                os.path.splitext(name)[1] == item]
 
-import re
+
 
 re_digits = re.compile(r'(\d+)')
 
