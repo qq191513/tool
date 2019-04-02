@@ -4,10 +4,12 @@ from pycallgraph.output import GraphvizOutput
 from pycallgraph import Config
 from pycallgraph import GlobbingFilter
 import cv2
+import os
 ##############################    改这里      ####################################
-
-# from test5 import */
-from logistic_regression import logistic
+def vis_program():
+    # 这里写要观察的主函数代码。
+    from logistic_regression import logistic
+    logistic()
 #希望包含的函数
 # myinclude = [
 #     'main',
@@ -15,10 +17,6 @@ from logistic_regression import logistic
 #     'MaxPooling2D',
 #     'Convolution2D'
 # ]
-def main():
-    # 你的主函数代码。
-    # download('http://www.baidu.com/img/bd_logo1.png', r'./fuck.png')
-    logistic()
 ###############################   end      #######################################
 
 if __name__ == "__main__":
@@ -40,7 +38,10 @@ if __name__ == "__main__":
     graphviz.output_file = save_name
     with PyCallGraph(output=graphviz, config=config):
     # with PyCallGraph(output=graphviz):
-        main()
-    mat = cv2.imread(save_name)
-    cv2.imshow(save_name,mat)
-    cv2.waitKey(10000)
+        vis_program()
+    # mat = cv2.imread(save_name)
+    # cv2.imshow(save_name,mat)
+    # cv2.waitKey(10000)
+    #显示图片，不用cv2
+    command = 'eog '+save_name
+    str = os.system('%s' % (command))
