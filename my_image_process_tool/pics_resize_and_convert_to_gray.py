@@ -3,7 +3,7 @@ import os
 import cv2
 
 ##########################要改的东西#######################################
-path = r'..\\my_video_new'
+path = r'..\\output\\my_video_new\\video_20190403_004212'
 reshape_size =(224,224,3)
 resize_pic = True
 convert_to_gray = False
@@ -13,6 +13,7 @@ convert_to_gray = False
 def create_new_route(file,reshape_size,resize_pic,convert_to_gray):
     # work:传入一个文件的完整路径，返回新的目标路径和无后缀文件名
     sep = os.path.sep
+    # sep = '/'
     file = file.split(sep) #切开
     index = 0
 

@@ -7,11 +7,11 @@ import numpy as np
 cwd = os.getcwd()
 
 ####################################### 改这里 ##################################
-path = r'..\\my_video'
+path = r'..\\output\\my_video'
 # new_route =r'../my_video_imgs'
-save_frequency = 1  #没多少帧保存一次
+save_frequency = 1  #每隔多少帧保存一次
 show_interval_ms = 50  #显示快慢
-rot90_number = 1  #视频画面旋转多少次90度
+rot90_number = 3  #视频画面旋转多少次90度
 ####################################### end ####################################
 
 
