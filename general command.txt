@@ -1,12 +1,23 @@
 ﻿1、更新清华源
-conda config --prepend channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
+
 cat ~/.condarc
 
 2、安装pytorch: 
-conda install pytorch torchvision -c pytorch             #cuda80版本
-conda install pytorch torchvision cuda90 -c pytorch      #cuda90版本
-conda install pytorch-cpu torchvision-cpu -c pytorch     #cpu版本
+vim ~/.condarc
+改成如下：
+channels:
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/msys2/
+  - https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/
+  - https://mirrors.ustc.edu.cn/anaconda/pkgs/main/
+show_channel_urls: true
+
+conda install pytorch torchvision cudatoolkit=9.0   
+
 
 3、安装anaconda里面的opencv3
 linux或windows版本都可以，（并保持和下面步骤4的版本一样）
