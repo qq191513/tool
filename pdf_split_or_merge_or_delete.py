@@ -84,7 +84,7 @@ if __name__ == '__main__':
     dirlist = []
     for root,dirs,files in os.walk(merge_dir):
         for file in files:
-            full_path = os.path.join(merge_dir, file)
+            full_path = os.path.join(root, file)
             dirlist.append(full_path)
             print(full_path)
     mergePdf(dirlist,save_file )
