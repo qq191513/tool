@@ -84,9 +84,11 @@ if __name__ == '__main__':
     dirlist = []
     for root,dirs,files in os.walk(merge_dir):
         for file in files:
-            full_path = os.path.join(root, file)
-            dirlist.append(full_path)
-            print(full_path)
+            if file.endswith('.pdf'):
+                full_path = os.path.join(root, file)
+                dirlist.append(full_path)
+                #print(full_path)
+    print(dirlist)             
     mergePdf(dirlist,save_file )
 
     #3、删除pdf
